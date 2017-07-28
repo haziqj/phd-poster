@@ -1,0 +1,382 @@
+\documentclass{beamer}
+\usepackage[orientation=landscape,size=a0,scale=1.2]{beamerposter}
+\usepackage{haziq_poster}
+\usepackage{haziq_maths}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% POSTER SETTINGS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamercolor{block title}{fg=black,bg=white}
+\setbeamercolor{block body}{fg=black,bg=white}
+\setbeamercolor{block alerted title}{fg=white,bg=black}
+\setbeamercolor{block alerted body}{fg=black,bg=white}
+
+% Define the column widths and overall poster size
+% To set effective sepwid, onecolwid and twocolwid values, first choose how many columns you want and how much separation you want between columns
+% In this template, the separation width chosen is 0.024 of the paper width and a 4-column layout
+% onecolwid should therefore be (1 - sepwid * (# of columns + 1)) / # of columns 
+% e.g. (1 - 0.024 * (4 + 1)) / 4 = 0.22
+% Set twocolwid to be (2 * onecolwid) + sepwid = 0.464
+% Set threecolwid to be (3 * onecolwid) + 2 * sepwid = 0.708
+% The whole poster consists of three major columns, the second of which is split into two columns twice - the [t] option aligns each column's content to the top
+\newlength{\sepwid}
+\newlength{\onecolwid}
+\newlength{\twocolwid}
+\newlength{\threecolwid}
+\setlength{\sepwid}{0.024\paperwidth} % Separation width (white space) between columns
+\setlength{\onecolwid}{0.22\paperwidth} % Width of one column
+\setlength{\twocolwid}{0.464\paperwidth} % Width of two columns
+\setlength{\threecolwid}{0.708\paperwidth} % Width of three columns
+
+% Title section
+\title{
+  Regression Modelling using Priors with Fisher Information\\[0.4ex] 
+  Covariance Kernels (I-priors)
+}
+
+\author{Haziq Jamil}
+
+\institute{
+  Department of Statistics\\
+  London School of Economics and\\[0.3ex] 
+  Political Science\\[0.7ex]
+  \url{http://haziqj.ml}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% BEGIN DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{frame}[t]  % the whole poster is enclosed in one beamer frame
+\vspace{-0.3cm}
+\begin{columns}[t]  % and in the columns environment
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% FIRST COLUMN %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\spacercolumn
+\begin{column}{\onecolwid} % The first column
+
+
+
+% Objectives -------------------------------------------------------------------
+\setbeamercolor{block alerted title}{fg=white,bg=colgrey} % Change the alert block title colors
+\setbeamercolor{block alerted body}{fg=black,bg=white} % Change the alert block body colors
+
+\begin{alertblock}{Objectives}
+
+\begin{itemize}
+  \item Outline an efficient computational method for estimating the parameters of an I-prior model in the continuous responses case.
+  \item Extend the I-prior methodology to categorical responses for classification and inference.
+  \item Explore the usefulness of I-priors towards variable selection.
+\end{itemize}
+
+\end{alertblock}
+
+
+
+% Introduction ------------------------------------------------------------------
+\begin{block}{Introduction}
+
+Consider the following regression model for $i=1,\dots,n$:
+~\\[-20pt]
+\begin{align}\label{eq:normalmodel}
+  \begin{gathered}
+      y_i = f(x_i) + \epsilon_i \\
+    (\epsilon_1, \dots, \epsilon_n)^\top \sim \N_n(0,\Psi^{-1})
+  \end{gathered}
+\end{align}
+~\\[-10pt]
+where $y_i \in \bbR$, $x \in \cX$, and $f \in \cF$. Let $\cF$ be a reproducing kernel Hilbert space (RKHS) with kernel $h_\lambda:\cX \times \cX \to \bbR$. The Fisher information for $f$ is given by
+~\\[-20pt]
+\begin{align}
+  \cI\big(f(x), f(x')\big) = \sum_{k=1}^n \sum_{l=1}^n \Psi_{k,l} h_\lambda(x,x_k) h_\lambda(x',x_l).
+\end{align}
+
+\begin{alertblock}{The I-prior}
+
+The entropy maximising prior distribution for $f$, subject to constraints, is 
+%Gaussian with mean chosen \emph{a priori}, and covariance equal to the Fisher information for $f$.
+\[
+  \bff = \big(f(x_1),\dots,f(x_n) \big) \sim \N (\bff_0, \cI[f]).
+\]
+
+\vspace{10pt}
+
+\end{alertblock}
+
+\vspace{-10pt}
+Of interest are the
+
+\newcommand{\new}{{\text{new}}}
+\begin{itemize}
+  \item Posterior distribution for the regression function
+  \[
+    p(\bff|\by) = \frac{p(\by|\bff) p(\bff)}{\int p(\by|\bff) p(\bff) \d \by}; \text{and}
+  \]
+  \item Posterior predictive distribution given new data
+  \[
+    p(y_\new|\by) = \int p(y_\new|f_\new,\by) p(f_\new|\by) \d \by.
+  \]
+\end{itemize}
+
+\end{block}
+
+
+
+% Estimation -------------------------------------------------------------------
+\vspace{-20pt}
+\begin{block}{Estimation}
+
+Model parameters (error precision $\Psi$, RKHS scale parameters $\lambda$, and any others) may be estimated via
+
+\begin{itemize}
+  \item Maximum (marginal) likelihood, a.k.a. empirical-Bayes;
+  \item Expectation-maximisation (EM) algorithm; or
+  \item Markov chain Monte Carlo (MCMC) methods.
+\end{itemize} 
+
+Under the normal model \eqref{eq:normalmodel}, the posterior for $y$, given some $x$ and model parameters, is normal with mean
+~\\[-20pt]
+\[
+  \hat y(x) = f_0(x) + \bh_\lambda^\top(x) \Psi H_\lambda(H_\lambda \Psi H_\lambda + \Psi^{-1})^{-1}\big(y - f_0(x)\big)
+\]
+~\\[-20pt]
+and variance
+~\\[-20pt]
+\[
+  \hat\sigma^2(x) = \bh_\lambda^\top(x) (H_\lambda \Psi H_\lambda + \Psi^{-1})^{-1} \bh_\lambda(x).
+\]
+
+\end{block}
+
+\end{column}  % End of the first column
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% SECOND & THIRD COLUMNS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\spacercolumn
+\begin{column}{\twocolwid}  % columns that is two columns wide
+
+
+
+% I-prior figures --------------------------------------------------------------
+\vspace{-1.5cm}
+\begin{figure}
+\includegraphics[width=\linewidth, height=25cm]{figure/placeholder.jpg}
+\caption{Figure caption}
+\end{figure}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% SECOND COLUMN %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{columns}[t,totalwidth=\twocolwid]  % split the column
+\begin{column}{\onecolwid}  % The first column within column 2 (column 2.1)
+
+
+
+% Computational hurdles --------------------------------------------------------
+\begin{block}{Computational Hurdles}
+
+For models with many scale parameters, 
+\begin{itemize}
+  \item Newton methods are problematic due to the presence of multiple local optima; while  
+  \item Gibbs sampling suffer from severe autocorrelation in the posterior samples.
+\end{itemize}
+The EM provides a reliable and straightforward framework for estimating the parameters of I-prior models.
+\\~\\[-0.8ex]
+Regardless, computational complexity is dominated by the $n \times n$ matrix inversion in (X), which is $O(n^3)$. Suppose that $H_\lambda \Psi H_\lambda = QQ^\top$, where $Q$ is a $n \times q$ matrix, is a valid low-rank decomposition. Then
+\[
+  (H_\lambda \Psi H_\lambda + \Psi^{-1})^{-1} = \Psi - \Psi Q (I_q + Q^\top \Psi Q)^{-1} Q^\top \Psi
+\]
+is a much cheaper $O(nq^2)$ operation, especially if $q \mlt n$.
+\\~\\[-0.8ex]
+We explore the Nyström method for low-rank matrix approximations, which we find works well for the fractional Brownian motion RKHS.
+
+\end{block}
+
+
+
+% Categorical responses --------------------------------------------------------
+\begin{block}{Categorical Responses}
+
+Suppose now that each $y_i \in \{ 1,\dots,m \}$ and that 
+\[
+  y_i \sim \Cat(p_{i1},\dots,p_{im})
+\]
+with probability mass function
+\[
+  p(y_i) = \prod_{j=1}^m p_{ij}^{\, y_{ij}}, \hspace{2cm} y_{ij} = [y_i = j],
+\]  
+satisfying $p_{ij} > 0$, $\sum_j p_{ij} = 1$ for $j \in \{ 1,\dots,m \}$.
+In the spirit of generalised linear models, take
+\[
+  \E[y_{ij}] = p_{ij} = g^{-1}\big(f_j(x_i)\big)
+\]
+with some link function $g:\bbR \to [0,1]$ and an I-prior on $f_j$.
+ 
+\end{block}
+
+\end{column} % End of column 2.1
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% THIRD COLUMN %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{column}{\onecolwid}  % The second column within column 2 (column 2.2)
+
+
+
+% Categorical responses (cont.) ------------------------------------------------
+\vspace{-2cm}
+\begin{block}{}
+
+Now, the marginal (on which the posterior depends),
+\[
+  p(\by) = \int \prod_{i=1}^n \prod_{j=1}^m \left[ \Big\{ g^{-1}\big( f_j(x_i) \big) \Big\}^{[y_i = j]} \cdot \N_n(\bff_{0j},\cI[f_j]) \d \bff_j \right],
+\]
+cannot be found in closed form.
+
+\end{block}
+
+\begin{block}{Variational Approximation}
+
+An approximation $q(\bff)$ to the true posterior density $p(\bff|\by)$ is considered, with $q$ chosen to minimise the Kullback-Leibler divergence (under certain restrictions):
+\\~\\[-2.5ex]
+\[
+  \KL(q||p) = -\int \log \frac{p(\bff|\by)}{q(\bff)} \, q(\bff) \d \bff.
+\]
+\\~\\[-0.3ex]
+By working in a fully Bayes setting, we append the parameters to $\bff$ and employ the variational approximation. The result is an iterative algorithm similar to the EM.
+\\~\\[-0.8ex]
+As this variational-EM works harmoniously with exponential family distributions, the probit link is preferred.
+  
+\end{block}
+
+\vspace{-1.5cm}
+\begin{figure}[t]
+  \includegraphics[width=\linewidth,height=13.5cm]{figure/binary_probit}
+  \caption{A toy example of binary classification using I-priors and the fBm-0.5 kernel over a two-dimensional predictor. Points indicate realisations, while background colours denote predicted classes.}
+\end{figure}
+
+\end{column} % End of column 2.2
+
+\end{columns} % End of the split of column 2 - any content after this will now take up 2 columns width
+
+%----------------------------------------------------------------------------------------
+%	IMPORTANT RESULT
+%----------------------------------------------------------------------------------------
+
+%\setbeamercolor{block alerted title}{fg=black,bg=dalgold} % Change the alert block title colors
+%\setbeamercolor{block alerted body}{fg=black,bg=white} % Change the alert block body colors
+%
+%\begin{alertblock}{Important Result}
+%
+%Lorem ipsum dolor \textbf{sit amet}, consectetur adipiscing elit. Sed commodo molestie porta. Sed ultrices scelerisque sapien ac commodo. Donec ut volutpat elit.
+%
+%\end{alertblock} 
+
+%----------------------------------------------------------------------------------------
+
+\end{column} % End of the second column
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% FOURTH COLUMN %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\spacercolumn
+\begin{column}{\onecolwid}
+
+
+
+% Variable Selection -----------------------------------------------------------
+\begin{block}{Variable Selection for Linear Models}
+In the original I-prior model, model selection can be done by comparing likelihoods (empirical Bayes factors). However, with $p$ variables to select, the $2^p$ comparisons will prove intractable.
+\\~\\[-0.8ex]
+For linear models of the form
+\[
+  (y_1,\dots,y_n)^\top \sim \N_n \Big( \beta_0\bone_n + \sum_{j=1}^p \beta_j X_j, \Psi^{-1} \Big),
+\]
+the prior
+\[
+  (\beta_1,\dots,\beta_p)^\top \sim \N_p(0, \Lambda X^\top \Psi X \Lambda)
+\]
+is an equivalent I-prior representation of \eqref{eq:normalmodel} in the feature space of $\beta$ under the linear kernel. 
+%Indeed, the prior covariance is the (scaled) Fisher information matrix for $\beta$.
+\\~\\[-0.8ex]
+We employ a fully Bayesian treatment of the model in order to estimate \emph{posterior model probabilities}
+\[
+  p(M | \by) \propto \int p(\by|M, \theta) p(\theta|M) p(M) \d\theta
+\]
+where $M$ is the model index and $\theta$ are model parameters.
+\\~\\[-0.8ex]
+Simulation studies together with real-data applications show promising results, outperforming methods such as greedy selection, $g$-priors, and regularisation (ridge and Lasso) under multicollinearity.
+\vspace{-0.5cm}
+\begin{table}
+  \vspace{2ex}
+  \begin{tabular}{l r r r r r}
+  \toprule
+  &\multicolumn{5}{ c }{\textbf{Signal-to-noise Ratio (SNR)}} \\
+  \textbf{False choices}
+  & \hspace{0.5cm} \textbf{90\%} 
+  & \hspace{0.5cm} \textbf{75\%} 
+  & \hspace{0.5cm} \textbf{50\%} 
+  & \hspace{0.5cm} \textbf{25\%} 
+  & \hspace{0.5cm} \textbf{10\%} \\
+  \midrule
+  \textbf{0-2}  & 0.84 & 0.92 & 0.81 & 0.79 & 0.20 \\
+  \textbf{3-5}  & 0.15 & 0.08 & 0.18 & 0.20 & 0.47 \\
+  \textbf{>5} & 0.01 & 0.00 & 0.01 & 0.01 & 0.33 \\
+%  \textbf{>10}  & 0.00 & 0.00 & 0.00 & 0.00 & 0.02 \\
+  \bottomrule
+  \end{tabular}
+  \caption{Simulation results of choosing 100 pairwise correlated variables using I-priors. Under differing SNR, proportions of false choices were recorded.}
+\end{table}  
+
+\end{block}
+
+
+
+% Conclusion -------------------------------------------------------------------
+\setbeamercolor{block alerted title}{fg=black,bg=colred} % Change the alert block title colors
+\setbeamercolor{block alerted body}{fg=black,bg=white} % Change the alert block body colors
+
+\begin{alertblock}{Conclusions}
+
+\begin{itemize}
+  \item The EM algorithm provides a straightforward and efficient method of estimating I-prior models.
+  \item The dominating $O(n^3)$ step in the algorithm can be reduced to $O(nq^2)$, $q \mlt n$, via low-rank matrix approximations.
+  \item Advantages of I-priors in the continuous case extend well to binary and multinomial responses.
+  \item I-priors work well for linear variable selection under multicollinearity.
+\end{itemize}
+
+\end{alertblock}
+
+
+
+% References -------------------------------------------------------------------
+\begin{block}{References}
+
+\nocite{*} % Insert publications even if they are not cited in the poster
+\small{\bibliographystyle{unsrt}
+\bibliography{bib/sample}\vspace{0.75in}}
+
+\end{block}
+
+\end{column} % End of the third column
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% END DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\spacercolumn
+\end{columns} % End of all the columns in the poster
+\end{frame} % End of the enclosing frame
+\end{document}
