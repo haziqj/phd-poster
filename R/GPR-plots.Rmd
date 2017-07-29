@@ -1,0 +1,144 @@
+---
+title: "Posterior for $f$ and posterior predictive distribution"
+author: "Haziq Jamil"
+date: "01/04/2017"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+knitr::read_chunk("01-prelim.R")
+knitr::read_chunk("02-iprior-plots.R")
+knitr::read_chunk("03-GPR-plots.R")
+```
+
+```{r prelim, include = FALSE}
+```
+```{r points, include = FALSE}
+```
+```{r plot.function.gpr, include = FALSE}
+```
+```{r plot.function.iprior, include = FALSE}
+```
+
+# Comparison between I-prior and Gaussian Process priors
+
+\newpage
+
+# Canonical kernel
+
+```{r canonical.kernel, include = FALSE, cache = TRUE}
+```
+```{r canonical.kernel.iprior, include = FALSE, cache = TRUE}
+```
+
+#### Prior and posterior draws (GPR)
+
+```{r, echo = FALSE, warning = FALSE, fig.height = 8.3, fig.width = 7, out.width = "18cm"}
+plot.can$p4
+```
+
+\newpage
+
+#### Prior and posterior draws (I-prior)
+
+```{r, echo = FALSE, warning = FALSE, fig.height = 8.3, fig.width = 7, out.width = "18cm"}
+plot.can.iprior$p4
+```
+
+\newpage
+
+#### 95% posterior predictive bands (GPR)
+
+```{r, echo = FALSE, warning = FALSE, out.height = "10cm"}
+plot.can$p3
+```
+
+#### 95% posterior predictive bands (I-prior)
+
+```{r, echo = FALSE, warning = FALSE, out.height = "10cm"}
+plot.can.iprior$p3
+```
+
+
+
+
+
+
+# FBM kernel
+
+```{r fbm.kernel, include = FALSE, cache = TRUE}
+```
+```{r fbm.kernel.iprior, include = FALSE, cache = TRUE}
+```
+
+#### Prior and posterior draws (GPR)
+
+```{r, echo = FALSE, warning = FALSE, fig.height = 8.3, fig.width = 7, out.width = "18cm"}
+plot.fbm$p4
+```
+
+\newpage
+
+#### Prior and posterior draws (I-prior)
+
+```{r, echo = FALSE, warning = FALSE, fig.height = 8.3, fig.width = 7, out.width = "18cm"}
+plot.fbm.iprior$p4
+```
+
+\newpage
+
+#### 95% posterior predictive bands (GPR)
+
+```{r, echo = FALSE, warning = FALSE, out.height = "10cm"}
+plot.fbm$p3
+```
+
+#### 95% posterior predictive bands (I-prior)
+
+```{r, echo = FALSE, warning = FALSE, out.height = "10cm"}
+plot.fbm.iprior$p3
+```
+
+
+
+
+
+
+
+# Squared Exponential kernel
+
+```{r se.kernel, include = FALSE, cache = TRUE}
+```
+```{r se.kernel.iprior, include = FALSE, cache = TRUE}
+```
+
+#### Prior and posterior draws (GPR)
+
+```{r, echo = FALSE, warning = FALSE, fig.height = 8.3, fig.width = 7, out.width = "18cm"}
+plot.se$p4
+```
+
+\newpage
+
+#### Prior and posterior draws (I-prior)
+
+```{r, echo = FALSE, warning = FALSE, fig.height = 8.3, fig.width = 7, out.width = "18cm"}
+plot.se.iprior$p4
+```
+
+\newpage
+
+#### 95% posterior predictive bands (GPR)
+
+```{r, echo = FALSE, warning = FALSE, out.height = "10cm"}
+plot.se$p3
+```
+
+#### 95% posterior predictive bands (I-prior)
+
+```{r, echo = FALSE, warning = FALSE, out.height = "10cm"}
+plot.se.iprior$p3
+```
