@@ -98,7 +98,7 @@ where $y_i \in \bbR$, $x \in \cX$, and $f \in \cF$. Let $\cF$ be a reproducing k
 The entropy maximising prior distribution for $f$, subject to constraints, is 
 %Gaussian with mean chosen \emph{a priori}, and covariance equal to the Fisher information for $f$.
 \[
-  \bff = \big(f(x_1),\dots,f(x_n) \big) \sim \N (\bff_0, \cI[f]).
+  \bff = \big(f(x_1),\dots,f(x_n) \big)^\top \sim \N_n \big(\bff_0, \cI[f] \big).
 \]
 
 \vspace{10pt}
@@ -137,16 +137,16 @@ Model parameters (error precision $\Psi$, RKHS scale parameters $\lambda$, and a
 \end{itemize} 
 
 Under the normal model \eqref{eq:normalmodel}, the posterior for $y$, given some $x$ and model parameters, is normal with mean
-~\\[-20pt]
-\[
-  \hat y(x) = f_0(x) + \bh_\lambda^\top(x) \Psi H_\lambda(H_\lambda \Psi H_\lambda + \Psi^{-1})^{-1}\big(y - f_0(x)\big)
-\]
-~\\[-20pt]
-and variance
-~\\[-20pt]
-\[
-  \hat\sigma^2(x) = \bh_\lambda^\top(x) (H_\lambda \Psi H_\lambda + \Psi^{-1})^{-1} \bh_\lambda(x) + \psi_x^{-1}.
-\]
+~\\[-28pt]
+\begin{gather}
+  \hat y(x) = f_0(x) + \bh_\lambda^\top(x) \Psi H_\lambda(H_\lambda \Psi H_\lambda + \Psi^{-1})^{-1}\big(y - f_0(x)\big) \nonumber \\
+  \nonumber \\[-28pt]
+  \beforetext{and variance} \label{eq:postmeanvar} \\
+  \nonumber \\[-28pt]
+  \hat\sigma^2(x) = \bh_\lambda^\top(x) (H_\lambda \Psi H_\lambda + \Psi^{-1})^{-1} \bh_\lambda(x) + \psi_x^{-1} \nonumber.
+\end{gather}
+
+
 
 \end{block}
 
@@ -163,10 +163,11 @@ and variance
 
 
 % I-prior figures --------------------------------------------------------------
-\vspace{-1.5cm}
+\vspace{-1.8cm}
 \begin{figure}
-\includegraphics[width=\linewidth, height=25cm]{figure/placeholder.jpg}
-\caption{Figure caption}
+\includegraphics[width=\linewidth, height=20cm]{figure/iprior_function}
+\vspace{-1.8cm}
+\caption{Sample paths from the fractional Brownian motion RKHS under an I-prior (left) and the posterior (right). There is somewhat controlled behaviour at the boundaries (compared to Gaussian process priors, say). Fewer information in this region pulls the function estimate towards the prior mean. The 95\% credibility interval for posterior estimates of $y$ are shaded grey.}
 \end{figure}
 
 
@@ -180,25 +181,50 @@ and variance
 
 
 % Computational hurdles --------------------------------------------------------
-\begin{block}{Computational Hurdles}
+\begin{block}{Computational Hurdle}
 
-For models with many scale parameters, 
-\begin{itemize}
-  \item Newton methods are problematic due to the presence of multiple local optima; while  
-  \item Gibbs sampling suffer from severe autocorrelation in the posterior samples.
-\end{itemize}
-The EM provides a reliable and straightforward framework for estimating the parameters of I-prior models.
-\\~\\[-0.8ex]
-Regardless, computational complexity is dominated by the $n \times n$ matrix inversion in (X), which is $O(n^3)$. Suppose that $H_\lambda \Psi H_\lambda = QQ^\top$, where $Q$ is a $n \times q$ matrix, is a valid low-rank decomposition. Then
+%For models with many scale parameters, 
+%\begin{itemize}
+%  \item Newton methods are problematic due to the presence of multiple local optima; while  
+%  \item Gibbs sampling suffer from severe autocorrelation in the posterior samples.
+%\end{itemize}
+%The EM provides a reliable and straightforward framework for estimating the parameters of I-prior models.
+%\\~\\[-0.8ex]
+%Regardless, 
+Computational complexity is dominated by the $n \times n$ matrix inversion in \eqref{eq:postmeanvar}, which is $O(n^3)$. Suppose that $H_\lambda \Psi H_\lambda = QQ^\top$, where $Q$ is a $n \times q$ matrix, is a valid low-rank decomposition. Then
+~\\[-18pt]
 \[
   (H_\lambda \Psi H_\lambda + \Psi^{-1})^{-1} = \Psi - \Psi Q (I_q + Q^\top \Psi Q)^{-1} Q^\top \Psi
 \]
-is a much cheaper $O(nq^2)$ operation, especially if $q \mlt n$.
-\\~\\[-0.8ex]
-We explore the Nyström method for low-rank matrix approximations, which we find works well for the fractional Brownian motion RKHS.
+~\\[-28pt]
+is a much cheaper $O(nq^2)$ operation, especially if $q \mlt n$. The Nyström method for low-rank matrix approximations is explored.
+%\\~\\[-0.8ex]
+%We explore the Nyström method for low-rank matrix approximations, which we find works well for the fractional Brownian motion RKHS.
 
 \end{block}
 
+
+
+% Advantages ------------------------------------------------------------------
+\setbeamercolor{block alerted title}{fg=white,bg=colgrey} % Change the alert block title colors
+\setbeamercolor{block alerted body}{fg=black,bg=white} % Change the alert block body colors
+\begin{alertblock}{I-prior advantages}
+
+\begin{itemize}
+  \item Unifies methodology for various regressions models, including: 
+  \begin{itemize}
+    \item Multidimensional smoothing
+    \item Random effects/multilevel models
+    \item Longitudinal models
+    \item Functional linear/smooth regression
+  \end{itemize}
+  \item Straightforward estimation and inference
+  \item Often gives better prediction for new data
+\end{itemize}
+
+%\vspace{10pt}
+
+\end{alertblock}
 
 
 % Categorical responses --------------------------------------------------------
@@ -214,9 +240,11 @@ with probability mass function
 \]  
 satisfying $p_{ij} > 0$, $\sum_j p_{ij} = 1$ for $j \in \{ 1,\dots,m \}$.
 In the spirit of generalised linear models, take
+~\\[-20pt]
 \[
   \E[y_{ij}] = p_{ij} = g^{-1}\big(f_j(x_i)\big)
 \]
+~\\[-28pt]
 with some link function $g:\bbR \to [0,1]$ and an I-prior on $f_j$.
  
 \end{block}
@@ -252,36 +280,21 @@ An approximation $q(\bff)$ to the true posterior density $p(\bff|\by)$ is consid
   \KL(q||p) = -\int \log \frac{p(\bff|\by)}{q(\bff)} \, q(\bff) \d \bff.
 \]
 \\~\\[-0.3ex]
-By working in a fully Bayes setting, we append the parameters to $\bff$ and employ the variational approximation. The result is an iterative algorithm similar to the EM.
+By working in a fully Bayes setting, we append model parameters to $\bff$ and employ a variational approximation. The result is an iterative algorithm similar to the EM.
 \\~\\[-0.8ex]
-As this variational-EM works harmoniously with exponential family distributions, the probit link is preferred.
+As this variational-EM works harmoniously with exponential family distributions, the {\bf\emph{probit}} link is preferred.
   
 \end{block}
 
 \vspace{-1.5cm}
 \begin{figure}[t]
-  \includegraphics[width=\linewidth,height=13.5cm]{figure/binary_probit}
+  \includegraphics[width=\linewidth,height=17cm]{figure/binary_probit}
   \caption{A toy example of binary classification using I-priors and the fBm-0.5 kernel over a two-dimensional predictor. Points indicate realisations, while background colours denote predicted classes.}
 \end{figure}
 
-\end{column} % End of column 2.2
+\end{column}
 
-\end{columns} % End of the split of column 2 - any content after this will now take up 2 columns width
-
-%----------------------------------------------------------------------------------------
-%	IMPORTANT RESULT
-%----------------------------------------------------------------------------------------
-
-%\setbeamercolor{block alerted title}{fg=black,bg=dalgold} % Change the alert block title colors
-%\setbeamercolor{block alerted body}{fg=black,bg=white} % Change the alert block body colors
-%
-%\begin{alertblock}{Important Result}
-%
-%Lorem ipsum dolor \textbf{sit amet}, consectetur adipiscing elit. Sed commodo molestie porta. Sed ultrices scelerisque sapien ac commodo. Donec ut volutpat elit.
-%
-%\end{alertblock} 
-
-%----------------------------------------------------------------------------------------
+\end{columns}
 
 \end{column} % End of the second column
 
@@ -297,13 +310,15 @@ As this variational-EM works harmoniously with exponential family distributions,
 
 % Variable Selection -----------------------------------------------------------
 \begin{block}{Variable Selection for Linear Models}
-In the original I-prior model, model selection can be done by comparing likelihoods (empirical Bayes factors). However, with $p$ variables to select, the $2^p$ comparisons will prove intractable.
+Model selection can easily be done by comparing likelihoods (empirical Bayes factors). However, with $p$ variables to select, the $2^p$ comparisons will prove intractable.
 \\~\\[-0.8ex]
 For linear models of the form
 \[
   (y_1,\dots,y_n)^\top \sim \N_n \Big( \beta_0\bone_n + \sum_{j=1}^p \beta_j X_j, \Psi^{-1} \Big),
 \]
+\vspace{-8pt}
 the prior
+\vspace{-8pt}
 \[
   (\beta_1,\dots,\beta_p)^\top \sim \N_p(0, \Lambda X^\top \Psi X \Lambda)
 \]
@@ -316,10 +331,10 @@ We employ a fully Bayesian treatment of the model in order to estimate \emph{pos
 \]
 where $M$ is the model index and $\theta$ are model parameters.
 \\~\\[-0.8ex]
-Simulation studies together with real-data applications show promising results, outperforming methods such as greedy selection, $g$-priors, and regularisation (ridge and Lasso) under multicollinearity.
+
 \vspace{-0.5cm}
 \begin{table}
-  \vspace{2ex}
+  \vspace{0.5ex}
   \begin{tabular}{l r r r r r}
   \toprule
   &\multicolumn{5}{ c }{\textbf{Signal-to-noise Ratio (SNR)}} \\
@@ -336,7 +351,8 @@ Simulation studies together with real-data applications show promising results, 
 %  \textbf{>10}  & 0.00 & 0.00 & 0.00 & 0.00 & 0.02 \\
   \bottomrule
   \end{tabular}
-  \caption{Simulation results of choosing 100 pairwise correlated variables using I-priors. Under differing SNR, proportions of false choices were recorded.}
+  \vspace{0.5ex}
+  \caption{Simulation results (proportion of false choices) for experiments in selecting 100 pairwise-correlated variables using I-priors under differing SNR. Our method outperforms methods such as greedy selection, $g$-priors, and regularisation (ridge and Lasso).}
 \end{table}  
 
 \end{block}
@@ -350,10 +366,10 @@ Simulation studies together with real-data applications show promising results, 
 \begin{alertblock}{Conclusions}
 
 \begin{itemize}
-  \item The EM algorithm provides a straightforward and efficient method of estimating I-prior models.
-  \item The dominating $O(n^3)$ step in the algorithm can be reduced to $O(nq^2)$, $q \mlt n$, via low-rank matrix approximations.
+%  \item The EM algorithm provides a straightforward and efficient method of estimating I-prior models.
+  \item The dominating $O(n^3)$ step in \eqref{eq:postmeanvar} can be reduced to $O(nq^2)$, $q \mlt n$, via low-rank matrix approximations.
   \item Advantages of I-priors in the continuous case extend well to binary and multinomial responses.
-  \item I-priors work well for linear variable selection under multicollinearity.
+  \item Simulations and real-data examples indicate that I-priors work well for linear variable selection under multicollinearity.
 \end{itemize}
 
 \end{alertblock}
@@ -363,13 +379,14 @@ Simulation studies together with real-data applications show promising results, 
 % References -------------------------------------------------------------------
 \begin{block}{References}
 
-\nocite{*} % Insert publications even if they are not cited in the poster
-\small{\bibliographystyle{unsrt}
-\bibliography{bib/sample}\vspace{0.75in}}
+\vspace{-10pt}
+\nocite{*}
+\bibliographystyle{unsrt}
+\small{\bibliography{bib/phd-poster}}
 
 \end{block}
 
-\end{column} % End of the third column
+\end{column}
 
 
 

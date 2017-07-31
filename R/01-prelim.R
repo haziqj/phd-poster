@@ -89,8 +89,17 @@ y <- f(x) + sign(y.err) * pmin(abs(y.err), rnorm(N, mean = 4.1))  # adding rando
 x.true <- seq(-2.1, 7, length = 1000)
 y.true <- f(x.true, TRUE)
 
+# # New points
+# set.seed(123)
+# x.up <- runif(10, max(x), max(x.true))
+# x.lo <- runif(10, min(x.true), min(x))
+# x.new <- c(x.up, x.lo)
+# y.err.new <- rt(10, df = 1)
+# y.new <- f(x.new) + sign(y.err.new) * pmin(abs(y.err.new), rnorm(10, mean = 4.1))
+
 # Data for plot
-dat <- data.frame(x, y)
+dat <- data.frame(x, y, points = "Observed")
+# dat <- rbind(dat, data.frame(x = x.new, y = y.new, points = "Unobserved"))
 dat.truth <- data.frame(x.true, y.true)
 
 p1 <- ggplot() +
@@ -100,8 +109,7 @@ p1 <- ggplot() +
     breaks = NULL, name = expression(italic(x))
   ) +
   scale_y_continuous(
-    # limits = c(min(y) - 5, max(y) + 5),
     breaks = NULL, name = expression(italic(y))
   ) +
-  coord_cartesian(ylim = c(min(y) - 5, max(y) + 5)) +
+  coord_cartesian(ylim = c(min(y, y) - 5, max(y, y) + 5)) +
   theme_bw()

@@ -115,17 +115,18 @@ plot1_iprior <- function(kernel = "SE", no.of.draws = 100) {
   draw.pri <- t(mvtnorm::rmvnorm(no.of.draws, mean = rep(alpha, 1000),
                                  sigma = Vf.pri))
   draw.pos <- t(mvtnorm::rmvnorm(no.of.draws, mean = y.fitted, sigma = Vf.pos))
-  dat.f <- rbind(data.frame(x = x.true, y = y.fitted, type = "Posterior"),
-                 data.frame(x = x.true, y = mean(y), type = "Prior"))
   melted.pos <- melt(data.frame(f = draw.pos, x = x.true), id.vars = "x")
   melted.pri <- melt(data.frame(f = draw.pri, x = x.true), id.vars = "x")
   melted <- rbind(cbind(melted.pri, type = "Prior"),
                   cbind(melted.pos, type = "Posterior"))
 
   # Posterior predictive covariance matrix -------------------------------------
+  varyprior <- abs(diag(Vf.pri)) + 1 / psi
   varystar <- abs(diag(Vf.pos)) + 1 / psi
   dat.fit <- data.frame(x.true, y.fitted, sdev = sqrt(varystar),
                         type = "95% credible interval")
+  dat.f <- rbind(data.frame(x = x.true, y = mean(y), sdev = NA, type = "Prior"),
+                 data.frame(x = x.true, y = y.fitted, sdev = sqrt(varystar), type = "Posterior"))
 
   # Prepare random draws for posterior predictive checks -----------------------
   VarY.hat <- (lambda ^ 2) * H %*% solve(Vy, H) + diag(1 / psi, nrow(Vy))
@@ -135,22 +136,67 @@ plot1_iprior <- function(kernel = "SE", no.of.draws = 100) {
 
   # Random draws from prior and posterior function -----------------------------
   p2.tmp <- ggplot() +
-    geom_point(data = dat, aes(x = x, y = y), col = "grey55", alpha = 0.5) +
+    geom_point(data = dat, aes(x = x, y = y), col = "grey60") +
     scale_x_continuous(
       limits = c(min(x.true), max(x.true)),
       breaks = NULL, name = expression(italic(x))
     ) +
     scale_y_continuous(
-      limits = c(min(y) - 5, max(y) + 5),
+      limits = c(min(y, y) - 5, max(y, y) + 5),
       breaks = NULL, name = expression(italic(y))
     ) +
+    # coord_cartesian(ylim = c(min(y, y) - 5, max(y, y) + 5)) +
     theme_bw()
-  p2 <- p2.tmp +
-    geom_line(data = melted, aes(x = x, y = value, group = variable),
-              col = "steelblue3", size = 0.19, alpha = 0.5) +
-    facet_grid(type ~ .) +
-    geom_line(data = dat.f, aes(x = x, y = y), size = 1, linetype = 2,
-              col = "grey10")
+  piy <- expression("95% credible interval ("*italic(y)*")")
+  smp <- "Sample paths"
+  mp <- "Mean paths"
+  p2 <- ggplot() +
+    scale_x_continuous(
+      limits = c(min(x.true), max(x.true)),
+      breaks = NULL, name = expression(italic(x))
+    ) +
+    scale_y_continuous(
+      limits = c(min(y, y) - 5, max(y, y) + 5),
+      breaks = NULL, name = expression(italic(y))
+    ) +
+    theme_bw() +
+    facet_grid(. ~ type) +
+    geom_ribbon(data = dat.f, fill = "grey90",
+                aes(x = x, ymin = y - 1.96 * sdev,
+                    ymax = y + 1.96 * sdev, alpha = "3")) +
+    geom_point(data = dat, aes(x = x, y = y), col = "grey60") +
+    geom_line(data = dat.f, aes(x = x, y = y - 1.96 * sdev, col = "three")) +
+    geom_line(data = melted,
+              aes(x = x, y = value, group = variable, col = "1", size = "1",
+                  linetype = "1", alpha = "1")) +
+    geom_line(data = dat.f,
+              aes(x = x, y = y, col = "2", size = "2", linetype = "2",
+                  alpha = "two")) +
+    scale_size_manual(
+      name = "", labels = c(smp, mp, piy),
+      values = c("1" = 0.19, "2" = 0.8, "3" = NA)
+    ) +
+    scale_colour_manual(
+      name = "", labels = c(smp, mp, piy),
+      values = c("1" = "steelblue3", "2" = "grey20", "3" = NA)
+    ) +
+    scale_linetype_manual(
+      name = "", labels = c(smp, mp, piy),
+      values = c("1" = 1, "2" = 2, "3" = NA)
+    ) +
+    scale_alpha_manual(
+      name = "", labels = c(smp, mp, piy),
+      values = c("1" = 0.5, "2" = 1, "3" = 0.65)
+    ) +
+    guides(size = FALSE, linetype = FALSE,
+           alpha = guide_legend(override.aes = list(size     = c(0.19, 0.8, 0),
+                                                    linetype = c(1, 2, 0),
+                                                    fill     = c(NA, NA, "grey90"),
+                                                    alpha    = c(1, 1, 0.65)))) +
+    theme(legend.key.width = unit(3, "line"), legend.justification = c(1, 0),
+          legend.position = c(1 - 0.001, 0 + 0.001), legend.text.align = 0,
+          legend.background = element_rect(fill = scales::alpha('white', 0))); p2
+
   p2.prior <- p2.tmp +
     geom_line(data = subset(melted, type == "Prior"),
               aes(x = x, y = value, group = variable),
@@ -218,31 +264,6 @@ plot.fbm.iprior <- plot1_iprior("FBM")
 plot.se.iprior <- plot1_iprior("SE")
 
 ## ---- save.plots.for.presentation ----
-ggsave("../figure/points.pdf", p1, width = 6.5, height = 6.5 / 2.25)
-# ggsave("figure/can-prior.pdf", plot.can$p2.prior.line,
-#        width = 6.5, height = 6.5 / 1.5)
-# ggsave("figure/can-posterior.pdf", plot.can$p2.posterior.line,
-#        width = 6.5, height = 6.5 / 1.5)
-ggsave("../figure/fbm-prior.pdf", plot.fbm$p2.prior.line,
-       width = 6.5, height = 6.5 / 1.5)
-ggsave("../figure/fbm-posterior.pdf", plot.fbm$p2.posterior.line,
-       width = 6.5, height = 6.5 / 1.5)
-ggsave("../figure/fbm-posterior-truth.pdf", {
-  plot.fbm$p2.posterior +
-    geom_line(data = dat.truth, aes(x = x.true, y = y.true), size = 1,
-              alpha = 0.75, col = "red3") +
-    annotate("text", label = "Truth", col = "red3", x = max(x.true),
-             y = max(y.true) + 1)
-  }, width = 6.5, height = 6.5 / 1.5)
-p1 <- p1 +
-  geom_line(data = dat.truth, aes(x = x.true, y = y.true), size = 1,
-            alpha = 0.75, col = "red3") +
-  scale_x_continuous(
-    breaks = NULL, name = NULL
-  ) +
-  scale_y_continuous(
-    breaks = NULL, name = NULL
-  ) + theme_classic()
-ggsave("../figure/plot-line.pdf", p1, width = 4, height = 4 / 2.25)
-ggsave("../figure/credible-interval.pdf", plot.fbm$p3, width = 6.5, height = 6.5 / 1.5)
-ggsave("../figure/ppc.pdf", plot.fbm$p5, width = 6.5, height = 6.5 / 1.5)
+ggsave("../figure/iprior_function.pdf", plot.fbm.iprior$p2,
+       width = 3 * 3.5, height = 3.5)
+
