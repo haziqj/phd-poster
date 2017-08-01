@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{haziq_article}
+\usepackage{haziq_maths}
+
+\begin{document}
+
+\section{Introduction}
+
+Consider the following regression model for $i=1,\dots,n$:
+\begin{align}\label{eq:normalmodel}
+  \begin{gathered}
+      y_i = f(x_i) + \epsilon_i \\
+    (\epsilon_1, \dots, \epsilon_n)^\top \sim \N_n(0,\Psi^{-1})
+  \end{gathered}
+\end{align}
+where $y_i \in \bbR$, $x \in \cX$, and $f \in \cF$. The set $\cX$ can be unidimensional, multidimensional, or even represent functional covariates.
+
+
+Let $\cF$ be a reproducing kernel Hilbert space (RKHS) with kernel $h_\lambda:\cX \times \cX \to \bbR$. The Fisher information for $f$ is given by
+
+\begin{align}
+  \cI\big(f(x), f(x')\big) = \sum_{k=1}^n \sum_{l=1}^n \Psi_{k,l} h_\lambda(x,x_k) h_\lambda(x',x_l).
+\end{align}
+
+
+\end{document}

@@ -19,6 +19,11 @@
 % Set twocolwid to be (2 * onecolwid) + sepwid = 0.464
 % Set threecolwid to be (3 * onecolwid) + 2 * sepwid = 0.708
 % The whole poster consists of three major columns, the second of which is split into two columns twice - the [t] option aligns each column's content to the top
+% A0 is 841 x 1189 mm
+% sep      =  28.536 mm
+% half sep =  14.268 mm
+% onecol   = 261.580 mm
+% total    = 304.384 mm
 \newlength{\sepwid}
 \newlength{\onecolwid}
 \newlength{\twocolwid}
@@ -30,7 +35,7 @@
 
 % Title section
 \title{
-  Regression Modelling using Priors with Fisher Information\\[0.4ex] 
+  Regression Modelling with Priors using Fisher Information\\[0.4ex] 
   Covariance Kernels (I-priors)
 }
 
@@ -51,31 +56,38 @@
 \vspace{-0.3cm}
 \begin{columns}[t]  % and in the columns environment
 
+% Draw lines separating columns
+\tikz[remember picture,overlay]{\draw[black,thick] ([shift={(4mm,-35.8cm)}]current page.north) -- ([shift={(4mm,1.6cm)}]current page.south);}
+\tikz[remember picture,overlay]{\draw[black,thick] ([shift={(308mm,-11.5cm)}]current page.north west) -- ([shift={(308mm,1.6cm)}]current page.south west);}
+\tikz[remember picture,overlay]{\draw[black,thick] ([shift={(-301mm,-11.5cm)}]current page.north east) -- ([shift={(-301mm,1.6cm)}]current page.south east);}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% FIRST COLUMN %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \spacercolumn
 \begin{column}{\onecolwid} % The first column
 
+\vspace{-0.6cm}
+\begin{figure}[t]
+  \includegraphics[width=0.7\linewidth,height=15cm]{figure/keyword_wordcloud2}
+\end{figure}
+
+%% Objectives ------------------------------------------------------------------
+%\setbeamercolor{block alerted title}{fg=white,bg=colgrey} % Change the alert block title colors
+%\setbeamercolor{block alerted body}{fg=black,bg=white} % Change the alert block body colors
+%
+%\begin{alertblock}{Objectives}
+%
+%\begin{itemize}
+%  \item Outline an efficient computational method for estimating the parameters of an I-prior model in the continuous responses case.
+%  \item Extend the I-prior methodology to categorical responses for classification and inference.
+%  \item Explore the usefulness of I-priors towards variable selection.
+%\end{itemize}
+%
+%\end{alertblock}
 
 
-% Objectives -------------------------------------------------------------------
-\setbeamercolor{block alerted title}{fg=white,bg=colgrey} % Change the alert block title colors
-\setbeamercolor{block alerted body}{fg=black,bg=white} % Change the alert block body colors
-
-\begin{alertblock}{Objectives}
-
-\begin{itemize}
-  \item Outline an efficient computational method for estimating the parameters of an I-prior model in the continuous responses case.
-  \item Extend the I-prior methodology to categorical responses for classification and inference.
-  \item Explore the usefulness of I-priors towards variable selection.
-\end{itemize}
-
-\end{alertblock}
-
-
-
-% Introduction ------------------------------------------------------------------
+% Introduction -----------------------------------------------------------------
 \begin{block}{Introduction}
 
 Consider the following regression model for $i=1,\dots,n$:
@@ -93,6 +105,8 @@ where $y_i \in \bbR$, $x \in \cX$, and $f \in \cF$. Let $\cF$ be a reproducing k
   \cI\big(f(x), f(x')\big) = \sum_{k=1}^n \sum_{l=1}^n \Psi_{k,l} h_\lambda(x,x_k) h_\lambda(x',x_l).
 \end{align}
 
+\setbeamercolor{block alerted title}{fg=white,bg=colgrey} % Change the alert block title colors
+\setbeamercolor{block alerted body}{fg=black,bg=white} % Change the alert block body colors
 \begin{alertblock}{The I-prior}
 
 The entropy maximising prior distribution for $f$, subject to constraints, is 
@@ -286,17 +300,18 @@ As this variational-EM works harmoniously with exponential family distributions,
   
 \end{block}
 
-\vspace{-1.5cm}
+\vspace{-1.8cm}
 \begin{figure}[t]
-  \includegraphics[width=\linewidth,height=17cm]{figure/binary_probit}
-  \caption{A toy example of binary classification using I-priors and the fBm-0.5 kernel over a two-dimensional predictor. Points indicate realisations, while background colours denote predicted classes.}
+  \includegraphics[width=\linewidth,height=17cm]{figure/iprobit_multiclass}
+  \vspace{-2cm}
+  \caption{A toy example of three-class classification using I-priors and the fBm-0.5 kernel over a two-dimensional predictor. Points indicate realisations, while background colours denote predicted classes. Several predicted probabilities for new data are shown too.}
 \end{figure}
 
 \end{column}
 
 \end{columns}
 
-\end{column} % End of the second column
+\end{column}
 
 
 
@@ -309,6 +324,7 @@ As this variational-EM works harmoniously with exponential family distributions,
 
 
 % Variable Selection -----------------------------------------------------------
+\vspace{1mm}
 \begin{block}{Variable Selection for Linear Models}
 Model selection can easily be done by comparing likelihoods (empirical Bayes factors). However, with $p$ variables to select, the $2^p$ comparisons will prove intractable.
 \\~\\[-0.8ex]
@@ -325,7 +341,7 @@ the prior
 is an equivalent I-prior representation of \eqref{eq:normalmodel} in the feature space of $\beta$ under the linear kernel. 
 %Indeed, the prior covariance is the (scaled) Fisher information matrix for $\beta$.
 \\~\\[-0.8ex]
-We employ a fully Bayesian treatment of the model in order to estimate \emph{posterior model probabilities}
+We employ a fully Bayesian treatment in order to estimate \emph{posterior model probabilities}
 \[
   p(M | \by) \propto \int p(\by|M, \theta) p(\theta|M) p(M) \d\theta
 \]
@@ -360,7 +376,7 @@ where $M$ is the model index and $\theta$ are model parameters.
 
 
 % Conclusion -------------------------------------------------------------------
-\setbeamercolor{block alerted title}{fg=black,bg=colred} % Change the alert block title colors
+\setbeamercolor{block alerted title}{fg=white,bg=colgrey} % Change the alert block title colors
 \setbeamercolor{block alerted body}{fg=black,bg=white} % Change the alert block body colors
 
 \begin{alertblock}{Conclusions}
@@ -377,6 +393,7 @@ where $M$ is the model index and $\theta$ are model parameters.
 
 
 % References -------------------------------------------------------------------
+\vspace{2mm}
 \begin{block}{References}
 
 \vspace{-10pt}
