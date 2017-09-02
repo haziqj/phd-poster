@@ -69,6 +69,22 @@ fnH4 <- function(x, y = NULL, l = 1) {
   tmp
 }
 
+# Polynomial kernel
+fnH5 <- function(x, y = NULL, c = 1, d = 2) {
+  rownames(x) <- colnames(x) <- rownames(y) <- colnames(y) <- NULL
+  x <- scale(x, scale = FALSE)  # centre the variables
+  if (is.null(y)) {
+    tmp <- (tcrossprod(x) + c) ^ d
+  } else {
+    if (is.vector(y)) y <- matrix(y, ncol = ncol(x))
+    else y <- as.matrix(y)
+    y <- sweep(y, 2, attr(x ,"scaled:center"), "-")
+    tmp <- (tcrossprod(y, x) + c) ^ d
+  }
+  # class(tmp) <- "Canonical"
+  tmp
+}
+
 ## ---- points ----
 set.seed(123)
 N <- 150

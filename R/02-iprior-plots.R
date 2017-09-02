@@ -44,6 +44,21 @@ dev_Cankern_iprior <- function(theta, y = y) {
   as.numeric(-2 * res)
 }
 
+dev_Polykern_iprior <- function(theta, y = y) {
+  alpha <- mean(y)
+  lambda <- exp(theta[1])
+  psi <- exp(theta[2])
+  c <- exp(theta[3])
+  n <- length(y)
+  H <- fnH5(x, c = c)
+  tmp <- eigen(lambda * H)
+  u <- tmp$val ^ 2 + 1 / psi
+  V <- tmp$vec
+  res <- -(n / 2) * log(2 * pi) - (1 / 2) * sum(log(u)) -
+    (1 / 2) * ((y - alpha) %*% V) %*% ((t(V) / u) %*% (y - alpha))
+  as.numeric(-2 * res)
+}
+
 plot1_iprior <- function(kernel = "SE", no.of.draws = 100) {
   # Fit an I-prior model -------------------------------------------------------
   if (kernel == "SE") {
@@ -92,13 +107,33 @@ plot1_iprior <- function(kernel = "SE", no.of.draws = 100) {
   } else if (kernel == "Canonical") {
     mod <- optim(c(1, 1), dev_Cankern_iprior, method = "L-BFGS", y = y)
     n <- length(y)
-    H <- fnH2(x); class(H) <- NULL
+    H <- fnH5(x); class(H) <- NULL
     alpha <- mean(y)
     lambda <- exp(mod$par[1])
     psi <- exp(mod$par[2])
     Vy <- psi * (lambda * H) %*% (lambda * H) + diag(1 / psi, n)
     w.hat <- psi * lambda * H %*% solve(Vy, y - alpha)
-    H.star <- fnH2(x = x, y = x.true); class(H.star) <- NULL
+    H.star <- fnH5(x = x, y = x.true); class(H.star) <- NULL
+    y.fitted <- as.numeric(mean(y) + lambda * H.star %*% w.hat)
+    y.fitted2 <- as.numeric(mean(y) + lambda * H %*% w.hat)
+
+    # Prior variance for f
+    Vf.pri <- psi * lambda ^ 2 * tcrossprod(H.star)
+    class(Vf.pri) <- NULL
+
+    # Posterior variance for f
+    Vf.pos <- lambda ^ 2 * H.star %*% solve(Vy, t(H.star))
+    class(Vf.pos) <- NULL
+  } else if (kernel == "Poly") {
+    mod <- optim(c(1, 1, 1), dev_Polykern_iprior, method = "L-BFGS", y = y)
+    n <- length(y)
+    H <- fnH5(x, c = exp(mod$par[3]))
+    alpha <- mean(y)
+    lambda <- exp(mod$par[1])
+    psi <- exp(mod$par[2])
+    Vy <- psi * (lambda * H) %*% (lambda * H) + diag(1 / psi, n)
+    w.hat <- psi * lambda * H %*% solve(Vy, y - alpha)
+    H.star <- fnH5(x = x, y = x.true, c = exp(mod$par[3]))
     y.fitted <- as.numeric(mean(y) + lambda * H.star %*% w.hat)
     y.fitted2 <- as.numeric(mean(y) + lambda * H %*% w.hat)
 
@@ -142,10 +177,10 @@ plot1_iprior <- function(kernel = "SE", no.of.draws = 100) {
       breaks = NULL, name = expression(italic(x))
     ) +
     scale_y_continuous(
-      limits = c(min(y, y) - 5, max(y, y) + 5),
+      # limits = c(min(y, y) - 5, max(y, y) + 5),
       breaks = NULL, name = expression(italic(y))
     ) +
-    # coord_cartesian(ylim = c(min(y, y) - 5, max(y, y) + 5)) +
+    coord_cartesian(ylim = c(min(y, y) - 5, max(y, y) + 5)) +
     theme_bw()
   piy <- expression("95% credible interval ("*italic(y)*")")
   smp <- "Sample paths"
@@ -156,9 +191,10 @@ plot1_iprior <- function(kernel = "SE", no.of.draws = 100) {
       breaks = NULL, name = expression(italic(x))
     ) +
     scale_y_continuous(
-      limits = c(min(y, y) - 5, max(y, y) + 5),
+      # limits = c(min(y, y) - 5, max(y, y) + 5),
       breaks = NULL, name = expression(italic(y))
     ) +
+    coord_cartesian(ylim = c(min(y, y) - 5, max(y, y) + 5)) +
     theme_bw() +
     facet_grid(. ~ type) +
     geom_ribbon(data = dat.f, fill = "grey90",
@@ -262,6 +298,9 @@ plot.fbm.iprior <- plot1_iprior("FBM")
 
 ## ---- se.kernel.iprior ----
 plot.se.iprior <- plot1_iprior("SE")
+
+## ---- poly.kernel.iprior ----
+plot.poly.iprior <- plot1_iprior("Poly")
 
 ## ---- save.plots.for.presentation ----
 ggsave("../figure/iprior_function.pdf", plot.fbm.iprior$p2,
