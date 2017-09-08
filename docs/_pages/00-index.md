@@ -1,7 +1,7 @@
 ---
 layout: splash
 title: My PhD Project
-permalink: /
+permalink: /not-done-yet
 header:
   overlay_image: /images/main_image.png
   overlay_filter: "0.45"
@@ -36,6 +36,9 @@ feature_row:
     url: "/var-select/"
     btn_label: "Read More"
     btn_class: "btn--inverse"
+feature_additional:
+  - title: "Word Cloud"
+  - title: "PhD Timeline"
 ---
 <!--
 I-priors are a class of objective priors on regression functions which make use of its Fisher information in a vector space framework. We present firstly some methodology and computational work on estimating regression functions by working in the appropriate reproducing kernel Hilbert space of functions and assuming an I-prior on the function of interest. Secondly, work on extending the I-prior methodology to categorical responses for classification is presented, in which estimation is performed using a variational approximation to the likelihood. Finally, a fully Bayes approach is considered where I-priors are used for variable selection.
@@ -44,6 +47,8 @@ I-priors are a class of objective priors on regression functions which make use 
 {% include feature_row id="top_stuff" type = "center" %}
 
 {% include feature_row %}
+
+<!-- {% include feature_row id="feature_additional" %} -->
 
 <!-- ```r
 

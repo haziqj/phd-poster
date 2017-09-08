@@ -257,3 +257,5 @@ defaults:
       layout: single
       read_time: true
       author_profile: false
+      sidebar: 
+        nav: siring

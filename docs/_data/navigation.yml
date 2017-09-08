@@ -1,14 +1,33 @@
 # main links
-main:
-  - title: "Introduction"
-    url: /intro
-  - title: "Regression"
-    url: /regression
-  - title: "Classification"
-    url: /classification
-  - title: "Variable Selection"
-    url: /var-select
-  - title: "Examples"
-    url: /examples 
-  - title: "Further Information"
-    url: /further-info
+# main:
+#   - title: "Introduction"
+#     url: /intro
+#   - title: "Regression"
+#     url: /regression
+#   - title: "Classification"
+#     url: /classification
+#   - title: "Variable Selection"
+#     url: /var-select
+#   - title: "Examples"
+#     url: /examples 
+#   - title: "Further Information"
+#     url: /further-info
+
+siring:
+  - title: "This Site"
+    children:
+      - title: "Introduction"
+        url: /intro
+      - title: "Regression"
+        url: /regression
+      - title: "Classification"
+        url: /classification
+      - title: "Variable Selection"
+        url: /var-select
+  # - title: "Relevant"
+  #   children: 
+  #     - title: "Thesis Abstract"
+  #     - title: "Wordcloud"
+  #     - title: "PhD Timeline"
+      - title: "Further Information"
+        url: /further-info
