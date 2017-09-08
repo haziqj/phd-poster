@@ -1,10 +1,11 @@
 ---
-title: My PhD Project
 layout: splash
+title: My PhD Project
+permalink: /
 header:
   overlay_image: /images/main_image.png
   overlay_filter: "0.45"
-excerpt: 'Regression modelling using priors with Fisher information covariance kernels (I-priors) <br /><br /> [Poster (PDF)](#link){: .btn .btn--light-outline}&nbsp;[View Source](https://github.com/haziqj/phd-poster/){: .btn .btn--light-outline}'
+excerpt: 'Regression modelling using priors with Fisher information covariance kernels (I-priors) <br /><br /> [Poster (PDF)](/phd-poster-haziq.pdf){: .btn .btn--light-outline}&nbsp;[View Source](https://github.com/haziqj/phd-poster/){: .btn .btn--light-outline}'
 intro: 
   - excerpt: 'A project submitted to the London School of Economics and Political Science for the degree of Doctor of Philosophy in Statistics.'
 top_stuff:

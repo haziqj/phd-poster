@@ -6,7 +6,7 @@
 # `jekyll serve`. If you change this file, please restart the server process.
 
 # Site Settings
-locale                   : "en"
+locale                   : "en-GB"
 title                    : "I-priors"
 title_separator          : "-"
 name                     : "Haziq Jamil"
@@ -55,7 +55,7 @@ yandex_site_verification :
 
 # Social Sharing
 twitter:
-  username               :
+  username               : 
 facebook:
   username               :
   app_id                 :
@@ -78,10 +78,10 @@ analytics:
 # Site Author
 author:
   name             : "Haziq Jamil"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/images/haziq.png"
   bio              : "Research student in Statistics"
-  location         : "London"
-  email            :
+  location         : "London, UK"
+  email            : "h.jamil@lse.ac.uk"
   uri              : "http://haziqj.ml"
   bitbucket        :
   codepen          :
@@ -101,7 +101,7 @@ author:
   stackoverflow    : # "123456/username" (the last part of your profile url, e.g. http://stackoverflow.com/users/123456/username)
   steam            : # "steamId" (the last part of your profile url, e.g. https://steamcommunity.com/id/steamId/)
   tumblr           :
-  twitter          :
+  twitter          : 
   vine             :
   weibo            :
   xing             :
@@ -173,13 +173,13 @@ sass:
 
 # Outputting
 permalink: /:categories/:title/
-paginate: 5 # amount of posts to show
-paginate_path: /page:num/
+# paginate: 5 # amount of posts to show
+# paginate_path: /page:num/
 timezone: "Europe/London"
 
 
 # Plugins
-gems:
+plugins:
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-gist
@@ -256,4 +256,4 @@ defaults:
     values:
       layout: single
       read_time: true
-      author_profile: true
+      author_profile: false

@@ -3,6 +3,7 @@ title: Further Information
 layout: single
 permalink: /further-info/
 read_time: false
+author_profile: true
 ---
 
 <script type="text/x-mathjax-config">
