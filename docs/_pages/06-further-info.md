@@ -4,6 +4,9 @@ layout: single
 permalink: /further-info/
 read_time: false
 author_profile: true
+sidebar:
+  - title:
+  - text: "<br/> [Front Page](/chain-not-converged){: .btn .btn--inverse}"
 ---
 
 {% include toc %}

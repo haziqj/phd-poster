@@ -3,11 +3,8 @@ title: Introducing I-priors
 layout: single
 permalink: /intro/
 <!-- sidebar:
-  - image: /assets/images/logo_reg.png
-  - title: Regression Modelling with Priors using Fisher Information Covariance Kernels (I-priors)
-  - text: PhD project. -->
-<!-- sidebar:
-  nav: siring -->
+  - title: My PhD project
+  - text: Regression modelling with priors using Fisher information covariance kernels (I-priors) -->
 gallery_canonical:
   - url: /assets/images/kernel_path_canonical.png
     image_path: /assets/images/kernel_path_canonical_th.png
