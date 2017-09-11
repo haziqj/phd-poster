@@ -188,7 +188,7 @@ $$
 \langle x,x' \rangle_\mathcal{X} \approx \sum_{t=1}^{T-1} (z_{t+1} - z_t)(z_{t+1}' - z_t'),
 $$
 
-so we can proceed with either any of the kernels listed above.
+so we can proceed with either the linear, fBm, or any other kernels which make use of inner products.
 
 ## Scale Parameters and Krein Spaces
 
@@ -213,7 +213,7 @@ $$
 and variance
 
 $$
-\sigma^2_y (x) = \mathbf{h}_\lambda^\top(x) \big(H_\lambda \Psi H_\lambda + \Psi^{-1}\big)^{-1} \mathbf{h}_\lambda(x) + \nu_x,
+\hat\sigma^2_y (x) = \mathbf{h}_\lambda^\top(x) \big(H_\lambda \Psi H_\lambda + \Psi^{-1}\big)^{-1} \mathbf{h}_\lambda(x) + \nu_x,
 $$
 
 where $$\mathbf{h}_\lambda^\top(x)$$ is a vector of length \\( n \\) with entries \\( h_\lambda(x,x_i) \\) for \\(i=1,\dots,n\\), $$H_\lambda$$ is the $$n \times n$$ kernel matrix, and $$\nu_x$$ is some term involving $$\mathbf h_\lambda^\top (x)$$ and the prior variance and covariances between $$y$$ at $$x$$ and $$y_1, \dots, y_n$$.

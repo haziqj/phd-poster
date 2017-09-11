@@ -62,7 +62,7 @@ Greedy selection methods such as forward or backward selection do exist, but one
 We employ a fully Bayesian treatment to explore the space of models and obtain posterior estimates for model probabilities given by
 
 $$
-p(M|\mathbf y) = \int p(\mathbf y|M,\theta) p(\theta|M) p(M) \, \text{d}\theta,
+p(M|\mathbf y) \propto \int p(\mathbf y|M,\theta) p(\theta|M) p(M) \, \text{d}\theta,
 $$
 
 where $$M$$ is a model index and $$\theta$$ are the parameters of the model. 

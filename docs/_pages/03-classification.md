@@ -117,7 +117,7 @@ $$
 p(\mathbf y) = \int \prod_{i=1}^n \prod_{j=1}^m \left[ \big\{ g^{-1}\big(f_j(x_i)\big) \big\}^{[y_i=j]} \cdot \text{N}_n (\mathbf{f}_{0j}, \mathcal I[f_j]) \, \text{d}\mathbf f_j \right],
 $$
 
-on which the posterior depends, cannot be found in closed form. 
+on which the posterior depends, is no longer available in closed form. 
 Several methods can be employed to overcome this intractable integral, by way of approximating the true posterior density by $$q(\mathbf y)$$, in order to obtain estimates of the hyperparameters.
 These are described below in an order analogous to the [methods described](/intro/#estimation) in the normal regression model.
 
