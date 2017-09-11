@@ -5,3 +5,5 @@
 .texpadtmp
 *cache*
 docs/_site/
+
+docs/.jekyll-metadata
