@@ -11,7 +11,7 @@ title                    : "I-priors"
 title_separator          : "-"
 name                     : "Haziq Jamil"
 description              : "A website for my PhD project."
-url                      : "http://myphd.haziqj.ml"
+url                      : "http://phd.haziqj.ml"
 baseurl                  : ""
 repository               : "haziqj/phd-poster"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
@@ -78,7 +78,7 @@ analytics:
 # Site Author
 author:
   name             : "Haziq Jamil"
-  avatar           : "/images/haziq.png"
+  avatar           : "/assets/images/haziq.png"
   bio              : "Research student in Statistics"
   location         : "London, UK"
   email            : "h.jamil@lse.ac.uk"

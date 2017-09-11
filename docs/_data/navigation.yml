@@ -16,6 +16,8 @@
 siring:
   - title: "This Site"
     children:
+      - title: "Front"
+        url: /chain-not-converged
       - title: "Introduction"
         url: /intro
       - title: "Regression"
@@ -24,6 +26,8 @@ siring:
         url: /classification
       - title: "Variable Selection"
         url: /var-select
+      - title: "Examples"
+        url: /examples
   # - title: "Relevant"
   #   children: 
   #     - title: "Thesis Abstract"

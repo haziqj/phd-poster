@@ -6,16 +6,21 @@ permalink: /var-select/
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
-  TeX: { equationNumbers: { autoNumber: "AMS" } }
+         TeX: { equationNumbers: { autoNumber: "AMS" } },
+  CommonHTML: {      linebreaks: {  automatic: true } },
+  "HTML-CSS": {      linebreaks: {  automatic: true } },
+         SVG: {      linebreaks: {  automatic: true } }
 });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
 
 {% include toc %}
 
 I-prior model selection can easily be done by comparing (marginal) likelihoods. 
-We also explore a fully Bayes alternative to model selection for linear models. 
-A simulation study gives positive results for the I-prior for linear models in situations with multicollinearity, beating other types of priors such as $$g$$-priors, independent priors (ridge regression), and also Laplace/double exponential priors (Lasso).
+We also explore a fully Bayesian alternative to model selection for linear models. 
+A simulation study gives positive results for the I-prior for linear models in situations with multicollinearity, beating other types of priors such as g-priors, independent priors (ridge regression), and also Laplace/double exponential priors (Lasso).
 
 ## Tests of Significance
 
@@ -29,42 +34,42 @@ where each $$f_j$$ lies in a RKHS $$\mathcal F_{\lambda_j}$$, one may be interes
 A valid way of doing this is by performing inference on the scale parameters $$\lambda_1, \dots, \lambda_p$$.
 
 Where these parameters are estimated using maximum marginal likelihood, the distribution of the scale parameters are asymptotically normal. 
-A simple test of significance can be done, and this would also correspond to the significance of the particular regression function since each $$f_j$$ is of the form
+A straightforward test of significance can be done, and this would also correspond to the significance of the particular regression function since each $$f_j$$ is of the form
 
 $$
-f_j(x_{ij}) = \lambda_j \sum_{k=1}^n h(x_{ij}, x_{ik}) w_k,
+f_j(x_{ij}) = \lambda_j \sum_{k=1}^n h(x_{ij}, x_{ik}) w_k.
 $$
-
-where the $$w_k$$ have a normal posterior distribution. 
 
 ## Model Comparison via Empirical Bayes Factors
 
 Alternatively, model comparison can be done by comparing likelihoods. 
-Again, as these models are fitted using maximum marginal likelihood, the log-likelihood ratio comparing two different models will follow an asymptotic $$\chi^2$$ distribution with degrees of freedom equal to the difference in the number of scale parameters in the two models.
+Again, as these models are fitted using maximum marginal likelihood, the log-likelihood ratio comparing two different models will follow an asymptotic $$\chi^2$$ distribution with degrees of freedom equal to the difference in the number of scale parameters in the models being compared.
 If the number of parameters are the same, then the model with the higher likelihood can be chosen.
 
-Such a method of comparing likelihoods is also known as comparing empirical Bayes factors, where the Bayes factor of comparing model $$M_1$$ to model $$M_2$$ is given by
+Such a method of comparing marginal likelihoods can be seen as Bayesian model selection using empirical Bayes factors, where the Bayes factor of comparing model $$M_1$$ to model $$M_2$$ is defined as
 
 $$
 \text{BF}(M_1,M_2) = \frac{\text{marginal likelihood for model } M_1}{\text{marginal likelihood for model } M_2}.
 $$
 
-The word 'empirical' stems from the fact that the parameters are estimated via maximum likelihood, which is seen as an empirical Bayes approach.
+The word 'empirical' stems from the fact that the parameters are estimated via an empirical Bayes approach (maximum marginal likelihood).
 
 ## Bayesian Model Selection
 
-When the number of predictors $$p$$ is large, then enumerating all possible model likelihoods for comparison becomes infeasible. Greedy selection methods such as forward or backward selection do exist, but these do not fully explore the entire model space.
+When the number of predictors $$p$$ is large, then enumerating all possible model likelihoods for comparison becomes infeasible. 
+Greedy selection methods such as forward or backward selection do exist, but one can never hope to completely explore the entire model space with these heuristic methods.
 
-We employ a fully Bayesian treatment to explore the space of models and obtain estimates for (posterior) model probabilities given by
+We employ a fully Bayesian treatment to explore the space of models and obtain posterior estimates for model probabilities given by
 
 $$
 p(M|\mathbf y) = \int p(\mathbf y|M,\theta) p(\theta|M) p(M) \, \text{d}\theta,
 $$
 
-where $$M$$ is a model index and $$\theta$$ are the parameters of the model. The model with the highest probability can be chosen, or a quantity of interest $$\Delta$$ estimated using model averaging techniques over a model set $$\mathcal M$$:
+where $$M$$ is a model index and $$\theta$$ are the parameters of the model. 
+The model with the highest probability can be chosen, or a quantity of interest $$\Delta$$ estimated using model averaging techniques over a model set $$\mathcal M$$ by way of
 
 $$
-\sum_{M \in \mathcal M} p(M|\mathbf y) \cdot \text{E}[\Delta|M, \mathbf y].
+\hat \Delta = \sum_{M \in \mathcal M} p(M|\mathbf y) \, \text{E}[\Delta|M, \mathbf y].
 $$
 
 <div>
@@ -84,40 +89,48 @@ based on an anchoring model <script type="math/tex">M_k</script>, and typically 
 For linear models of the form 
 
 $$
-(y_1,\dots,y_n) \sim \text{N}_n \Big(\beta_0 \mathbf 1_n + \sum_{j=1}^p \beta_j X_j, \Psi^{-1} \Big),
+\begin{align}
+(y_1,\dots,y_n)^\top \sim \text{N}_n \Big(\beta_0 \mathbf 1_n + \sum_{j=1}^p \beta_j X_j, \Psi^{-1} \Big), \tag{4}
+\end{align}
 $$
 
 the prior 
 
 $$
-(\beta_1, \dots, \beta_p) = \text{N}_p(0, \Lambda X^\top \Psi X \Lambda)
+\begin{align}
+(\beta_1, \dots, \beta_p)^\top \sim \text{N}_p(0, \Lambda X^\top \Psi X \Lambda) \tag{5}
+\end{align}
 $$
 
-is an equivalent I-prior representation of model [(1)](/intro/#introduction) subject to [(3)](/intro/#eq-iprior) in the feature space of $$\beta$$ under the linear kernel. 
+is an equivalent I-prior representation of model [(1)](/intro/#introduction) subject to [(2)](/intro/#eq-iprior) in the feature space of $$\beta$$ under the linear kernel (cf. [here](/regression/#canonical-kernel-matrix)). 
 
 ### Stochastic Search Methods
 
-While posterior model probabilities may be enumerated one by one, variable selection with large $$p$$ would fail on listing all $$2^p$$ of these probabilities. Various methods exist in the literature for stochastic search methods via Gibbs sampling, such that only models that have considerable probability of being selected are visited in the posterior MCMC chain.
+While posterior model probabilities may be enumerated one by one, variable selection with large $$p$$ would more than likely fail to list all $$2^p$$ probabilities. 
+Various methods exist in the literature for stochastic search methods via Gibbs sampling, such that only models that have considerable probability of being selected are visited in the posterior MCMC chain.
 
-One such method is by Kuo and Mallick (1998). Each model is indexed by $$\gamma \in \{0,1\}^p$$, with $$j$$th value of zero indicating an exclusion and one an inclusion of the variable $$X_j$$. The following model is estimated via Gibbs sampling:
+One such method is by [Kuo and Mallick (1998)](/further-info/#variable-selection). 
+Each model is indexed by $$\gamma \in \{0,1\}^p$$, with a $$j$$th value of zero indicating an exclusion, and one an inclusion of the variable $$X_j$$. 
+The above model [(4)](#variable-selection-for-linear-models) is estimated via Gibbs sampling, but with the mean of $$\mathbf y$$ revised to incorporate $$\gamma$$:
 
 $$
-y_i = \beta_0 + \gamma_1\beta_1 X_1 + \dots + \gamma_p\beta_p X_p + \epsilon_i,
+\boldsymbol\mu_y = \beta_0 + \gamma_1\beta_1 X_1 + \dots + \gamma_p\beta_p X_p.
 $$
 
-along with normally distributed errors as in [(1)](/intro/#introduction), an I-prior on $$\beta$$, and some suitable priors on $$\gamma$$, the intercept $$\beta_0$$ and error precision $$\Psi$$.
+This is done in conjunction with an I-prior on $$\beta$$ as in [(5)](#variable-selection-for-linear-models), and some suitable priors on $$\gamma$$, the intercept $$\beta_0$$, scale parameters $$\Lambda$$, and error precision $$\Psi$$.
 
-Posterior inclusion probabilities for a particular variable $$X_j$$ can be estimated as $$\frac{1}{T}\sum_{t=1}^T \gamma_j^{(t)}$$, where $$\gamma_j^{(t)}$$ is the $$t$$th MCMC sample. This gives an indication of how often the variable was chosen in all possible models. 
+Posterior inclusion probabilities for a particular variable $$X_j$$ can be estimated as $$\frac{1}{T}\sum_{t=1}^T \gamma_j^{(t)}$$, where $$\gamma_j^{(t)}$$ is the $$t$$th MCMC sample. 
+This gives an indication of how often the variable was chosen in all possible models. 
 
 More importantly, posterior model probabilities may be estimated by calculating the proportion of a particular sequence $$\gamma$$, corresponding to a particular model $$M_\gamma$$, appearing in the MCMC samples.
 
 ### Simulation Study
 
-A study is conducted to assess the performance of each method (prior) in choosing the correct variables across five different scenarios quantified by the signal to noise ratio (SNR). 
-For each scenario, out of 100 variables $$X_1,\dots,X_{100}$$ with pairwise correlation of about 0.5., only $$s$$ were selected to form the "true" model and generate the responses according to the linear model above.
+A study was conducted to assess the performance of the I-prior, g-prior, independent prior and Lasso in choosing the correct variables across five different scenarios quantified by the signal to noise ratio (SNR). 
+For each scenario, out of 100 variables $$X_1,\dots,X_{100}$$ with pairwise correlation of about 0.5, only $$s$$ were selected to form the "true" model and generate the responses according to the linear [model above](#variable-selection-for-linear-models).
 The SNR as a percentage is defined as $$s \%$$, and the five scenarios are made up of varying SNR from high to low: 90%, 75%, 50%, 25%, and 10%.
 
-The experiment is conducted as follows:
+The experiment was conducted as follows:
 
 1. For each scenario, generate data $$(y, X)$$.
 2. Obtain the highest probability model and count the number of false choices made by each method.
@@ -126,8 +139,7 @@ The experiment is conducted as follows:
 
 The results are tabulated below:
 
-*Table 1: Results for the I-prior method*
-{: .text-center }
+<figcaption>Table 1: Results for the I-prior method.</figcaption>
 
 | False choices | 90%  | 75%  | 50%  | 25%  | 10%  |
 |---------------|------|------|------|------|------|
@@ -137,8 +149,7 @@ The results are tabulated below:
 
 <a></a>
 
-*Table 2: Results for the $$g$$-prior method*
-{: .text-center}
+<figcaption>Table 2: Results for the g-prior method.</figcaption>
 
 | False choices | 90%  | 75%  | 50%  | 25%  | 10%  |
 |---------------|------|------|------|------|------|
@@ -148,8 +159,7 @@ The results are tabulated below:
 
 <a></a>
 
-*Table 3: Results for the ridge method*
-{: .text-center}
+<figcaption>Table 3: Results for the ridge method.</figcaption>
 
 | False choices | 90%  | 75%  | 50%  | 25%  | 10%  |
 |---------------|------|------|------|------|------|
@@ -159,8 +169,7 @@ The results are tabulated below:
 
 <a></a>
 
-*Table 4: Results for the Lasso method*
-{: .text-center}
+<figcaption>Table 4: Results for the Lasso method.</figcaption>
 
 | False choices | 90%  | 75%  | 50%  | 25%  | 10%  |
 |---------------|------|------|------|------|------|
