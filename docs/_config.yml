@@ -260,4 +260,6 @@ defaults:
       author_profile: false
       sidebar:
         - title: My PhD Project
-        - text: "Regression modelling using priors with Fisher information covariance kernels (I-priors) <br/> <br/> [Front Page](/chain-not-converged){: .btn .btn--inverse}"
+        - text: "Regression modelling using priors with Fisher information covariance kernels (I-priors)"
+        #- text: "Regression modelling using priors with Fisher information covariance kernels (I-priors) <br/> <br/> [Front Page](/chain-not-converged){: .btn .btn--inverse}"
+
