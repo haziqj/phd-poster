@@ -251,3 +251,7 @@ we can treat the "random effects" $$w_i$$ as missing, and proceed with the EM al
 We can employ a fully Bayesian treatment of I-prior models by assigning prior distributions to the hyperparameters $$\lambda$$ and $$\Psi$$. Gibbs-based methods can then be employed to sample from the posterior of these hyperparameters and obtain point estimates using statistics such as the posterior mean.
 
 In our experience, many real and simulated data examples suffer from severe auto-correlations in the MCMC chains. This sampling inefficiency can be overcome by using sophisticated methods such as Hamiltonian Monte Carlo.
+
+{{ page.date }}
+
+{{ page.last_modified_at }}
