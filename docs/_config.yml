@@ -185,7 +185,6 @@ plugins:
   - jekyll-gist
   # - jekyll-feed
   - jemoji
-  - jekyll-last-modified-at
 
 # mimic GitHub Pages with --safe
 whitelist:
@@ -194,7 +193,7 @@ whitelist:
   - jekyll-gist
   # - jekyll-feed
   - jemoji
-  - jekyll-last-modified-at
+
 
 
 # Archives
@@ -257,6 +256,7 @@ defaults:
       type: pages
     values:
       layout: single
+      date: {% if page.date %} {{ page.date }} {% else %} {{ site.time }} {% endif %}
       read_time: true
       author_profile: false
       sidebar:
