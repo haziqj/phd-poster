@@ -21,19 +21,3 @@ layout: single
 
   <p><strong>I'm building something awesome :)</strong></p>
 </div>
-
-<!-- {{ page.layout }}
-
-{{ page.date }}
-
-{{ page.last_modified_at }}
-
-{{ site.date }}
-
-{{ site.time }}
- -->
-{% if page.date %} {{ page.date }} {% else %} {{ site.time }} {% endif %}
-
-<p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].date_label | default: "Updated:" }}</strong> <time datetime="{{ site.time | date: "%Y-%m-%d" }}">{{ site.time | date: "%B %d, %Y" }}</time></p>
-
-          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].date_label | default: "Updated:" }}</strong> <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time></p>
