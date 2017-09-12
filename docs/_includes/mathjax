@@ -9,3 +9,5 @@ MathJax.Hub.Config({
 <script type="text/javascript" async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
+
+{% if page.date %} {{ assign page.date = page.date }} {% else %} {{ assign page.date = site.time }} {% endif %}
