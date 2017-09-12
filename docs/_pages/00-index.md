@@ -1,7 +1,7 @@
 ---
 layout: splash
 title: My PhD Project
-permalink: /chain-not-converged
+permalink: /
 header:
   overlay_image: /assets/images/main_image_filter.jpg
   overlay_filter: "0.25"
