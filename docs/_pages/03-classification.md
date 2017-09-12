@@ -4,17 +4,7 @@ layout: single
 permalink: /classification/
 ---
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-         TeX: { equationNumbers: { autoNumber: "AMS" } },
-  CommonHTML: {      linebreaks: {  automatic: true } },
-  "HTML-CSS": {      linebreaks: {  automatic: true } },
-         SVG: {      linebreaks: {  automatic: true } }
-});
-</script>
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
+{% include mathjax %}
 
 {% include toc %}
 
