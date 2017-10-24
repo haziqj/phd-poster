@@ -24,7 +24,7 @@ This project was supervised by [Wicher Bergsma](http://www.lse.ac.uk/researchand
 ## Author
 
 Haziq Jamil is a research student in Statistics at the London School of Economics and Political Science.
-His interests are in statistical methodology and computation, with an emphasis on applications towards social science.
+His interests are in statistical methodology and computation, with an emphasis on applications towards the social sciences.
 
 Haziq graduated with first class honours from The University of Warwick in 2010, where he read Mathematics, Operational Research, Statistics and Economics. 
 He completed an MSc in Statistics with distinction at the London School of Economics and Political Science in 2014. 

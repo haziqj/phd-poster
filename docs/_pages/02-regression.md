@@ -164,10 +164,10 @@ The posterior mean $$\hat f(x)$$ is the same as the posterior mean $$\hat y(x)$$
 
 Computational complexity is dominated by an $$n \times n$$ matrix inversion which is $$O(n^3)$$. In the case of Newton-based approaches, this needs to be evaluated at each Newton step. In the case of the EM algorithm, every update cycle involves such an inversion. For stochastic MCMC sampling methods, the inversion occurs in each sampling step.
 
-Suppose that $$H_\lambda \Psi H_\lambda = QQ^\top$$, with $$Q$$ an $$n \times q$$ matrix, is a valid low-rank decomposition. Then
+Suppose that $$H_\lambda = QQ^\top$$, with $$Q$$ an $$n \times q$$ matrix, is a valid low-rank decomposition. Then
 
 $$
-\big(H_\lambda \Psi H_\lambda + \Psi^{-1}\big)^{-1} = \Psi - \Psi Q \big(I_q + Q^\top \Psi Q \big)^{-1} Q^\top\Psi,
+\big(H_\lambda \Psi H_\lambda + \Psi^{-1}\big)^{-1} = \Psi - \Psi Q \big((Q^\top \Psi Q)^{-1} + Q^\top \Psi Q \big)^{-1} Q^\top\Psi,
 $$
 
 obtained via the Woodbury matrix identity, is a much cheaper $$O(nq^2)$$ operation, especially if $$q \ll n$$.

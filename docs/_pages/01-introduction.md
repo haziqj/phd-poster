@@ -90,7 +90,7 @@ where \\( (w_1,\dots,w_n)^\top \sim \text{N}_n(0, \Psi) \\). Of interest then, a
 
 - the posterior predictive distribution given new data \\(x_\text{new}\\)
 
-  $$p(y_\text{new}|\mathbf{y}) = \int p(y_\text{new}|f_\text{new}, \mathbf{y}) p(f_\text{new} | \mathbf{y}) \, \text{d}\mathbf{y}$$
+  $$p(y_\text{new}|\mathbf{y}) = \int p(y_\text{new}|f_\text{new}, \mathbf{y}) p(f_\text{new} | \mathbf{y}) \, \text{d}f_\text{new}$$
 
   where \\(f_\text{new} = f(x_\text{new})\\).  
 
