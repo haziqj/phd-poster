@@ -112,6 +112,7 @@ author:
 include:
   - .htaccess
   - _pages
+  - iprior_paper.pdf
 exclude:
   - "*.sublime-project"
   - "*.sublime-workspace"
