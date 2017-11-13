@@ -182,7 +182,7 @@ timezone: Europe/London
 # Plugins
 plugins:
   - jekyll-paginate
-  # - jekyll-sitemap
+  - jekyll-sitemap
   - jekyll-gist
   - jekyll-feed
   - jemoji
@@ -190,7 +190,7 @@ plugins:
 # mimic GitHub Pages with --safe
 whitelist:
   - jekyll-paginate
-  # - jekyll-sitemap
+  - jekyll-sitemap
   - jekyll-gist
   - jekyll-feed
   - jemoji
