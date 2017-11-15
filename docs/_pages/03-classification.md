@@ -27,7 +27,7 @@ $$
 
 satisfying $$p_{ij} \geq 0$$, and $$\sum_{j=1}^m p_{ij} = 1$$.
 
-The categorical distribution is a special case of the multinomial distribution, and can be seen as a generalisation of the binomial distribution. 
+The categorical distribution is a special case of the multinomial distribution, and can be seen as a generalisation of the Bernoulli distribution. 
 Here, we have used the notation $$[\cdot]$$ to denote the Iverson bracket - $$[A]$$ equals one if the proposition $$A$$ is true, and zero otherwise.
 {: .notice--info}
 
@@ -43,7 +43,7 @@ As we will see [later](#variational-approximation), the *probit* link $$g = \Phi
 
 ### Binary Responses
 
-In the simplest case where $$m=2$$, $$y_i$$ follows a binomial distribution with success probability $$p_i$$. The probit link can be motivated through the use of continuous, underlying latent variables $$y_i^*,\dots,y_n^*$$ such that
+In the simplest case where $$m=2$$, each $$y_i$$ follows a Bernoulli distribution with success probability $$p_i$$. The probit link can be motivated through the use of continuous, underlying latent variables $$y_i^*,\dots,y_n^*$$ such that
 
 $$
 y_i =
