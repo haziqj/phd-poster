@@ -130,7 +130,7 @@ Of interest are
   \]
   \item the posterior predictive distribution given new data
   \[
-    p(y_\new|\by) = \int p(y_\new|f_\new,\by) p(f_\new|\by) \d \by.
+    p(y_\new|\by) = \int p(y_\new|f_\new,\by) p(f_\new|\by) \d f_\new.
   \]
 \end{itemize}
 
@@ -161,10 +161,10 @@ Under the normal model \eqref{eq:normalmodel}, the posterior for $y$, given some
   \nonumber \\[-24pt]
   \hat\sigma^2(x) = \bh_\lambda^\top(x) 
   \big(H_\lambda \Psi H_\lambda + \Psi^{-1}\big)^{-1} 
-  \bh_\lambda(x) + \nu_x^{-1} \nonumber,
+  \bh_\lambda(x) + v_x \nonumber,
 \end{gather}
 ~\\[-25pt]
-where $\nu_x$ is some covariance term.
+where $v_x$ is some prior variance component.
 
 
 \end{block}
@@ -210,13 +210,14 @@ where $\nu_x$ is some covariance term.
 %The EM provides a reliable and straightforward framework for estimating the parameters of I-prior models.
 %\\~\\[-0.8ex]
 %Regardless, 
-Computational complexity is dominated by the $n \times n$ matrix inversion in \eqref{eq:postmeanvar}, which is $O(n^3)$. Suppose that $H_\lambda \Psi H_\lambda = QQ^\top$, with $Q$ an $n \times q$ matrix, is a valid low-rank decomposition. Then
+Computational complexity is dominated by the $n \times n$ matrix inversion in \eqref{eq:postmeanvar}, which is $O(n^3)$. Suppose that $H_\lambda = QQ^\top$, with $Q$ an $n \times q$ matrix, is a valid low-rank decomposition. Then
 ~\\[-18pt]
 \[
-  \big(H_\lambda \Psi H_\lambda + \Psi^{-1}\big)^{-1} = \Psi - \Psi Q \big(I_q + Q^\top \Psi Q\big)^{-1} Q^\top \Psi
+  \big(H_\lambda \Psi H_\lambda + \Psi^{-1}\big)^{-1} = \Psi - \Psi Q \big((Q^\top \Psi Q)^{-1} + Q^\top \Psi Q\big)^{-1} Q^\top \Psi
 \]
 ~\\[-28pt]
-is a much cheaper $O(nq^2)$ operation, especially if $q \mlt n$. The Nyström method for low-rank matrix approximations is explored.
+is a much cheaper $O(nq^2)$ operation, especially if $q \mlt n$. 
+Exact and approximated methods (such as the Nyström method) for low-rank matrix manipulations are explored.
 %\\~\\[-0.8ex]
 %We explore the Nyström method for low-rank matrix approximations, which we find works well for the fractional Brownian motion RKHS.
 
@@ -257,7 +258,7 @@ with probability mass function
 \[
   p(y_i) = \prod_{j=1}^m p_{ij}^{\, y_{ij}}, \hspace{2cm} y_{ij} = [y_i = j],
 \]  
-satisfying $p_{ij} > 0$, $\sum_j p_{ij} = 1$ for $j \in \{ 1,\dots,m \}$.
+satisfying $p_{ij} > 0$ and $\sum_j p_{ij} = 1$, $\forall j \in \{ 1,\dots,m \}$.
 In the spirit of generalised linear models, take
 ~\\[-20pt]
 \[
@@ -283,7 +284,7 @@ with some link function $g:[0,1] \to \bbR$ and an I-prior on $f_j$.
 \vspace{-2cm}
 \begin{block}{}
 
-Now, the marginal (on which the posterior depends),
+Now, the marginal, on which the posterior depends,
 \[
   p(\by) = \int \prod_{i=1}^n \prod_{j=1}^m \left[ \Big\{ g^{-1}\big( f_j(x_i) \big) \Big\}^{[y_i = j]} \cdot \N_n(\bff_{0j},\cI[f_j]) \d \bff_j \right],
 \]
@@ -293,7 +294,7 @@ cannot be found in closed form.
 
 \begin{block}{Variational Approximation}
 
-An approximation $q(\bff)$ to the true posterior density $p(\bff|\by)$ is considered, with $q$ chosen to minimise the Kullback-Leibler divergence (under certain restrictions):
+An approximation $q(\bff)$ to the true posterior density $p(\bff|\by)$ is sought, with $q$ chosen to minimise the Kullback-Leibler divergence (under certain restrictions), i.e.
 \\~\\[-2.5ex]
 \[
   \KL(q||p) = -\int \log \frac{p(\bff|\by)}{q(\bff)} \, q(\bff) \d \bff.
@@ -346,7 +347,7 @@ the prior
 is an equivalent I-prior representation of \eqref{eq:normalmodel} in the feature space of $\beta$ under the linear kernel. 
 %Indeed, the prior covariance is the (scaled) Fisher information matrix for $\beta$.
 \\~\\[-0.8ex]
-Gibbs-based methods are used in order to estimate \emph{posterior model probabilities}
+Gibbs-based methods with are used in order to estimate \emph{posterior model probabilities}
 \[
   p(M | \by) \propto \int p(\by|M, \theta) p(\theta|M) p(M) \d\theta
 \]
@@ -367,9 +368,9 @@ where $M$ is the model index and $\theta$ are model parameters.
   & \hspace{0.5cm} \textbf{\hspace{3.5mm}25\%} 
   & \hspace{0.5cm} \textbf{\hspace{3.5mm}10\%} \\
   \midrule
-  \textbf{0-2}  & 0.92 & 0.92 & 0.92 & 0.78 & 0.52 \\
-  \textbf{3-5}  & 0.08 & 0.08 & 0.08 & 0.20 & 0.28 \\
-  \textbf{>5} & 0.01 & 0.00 & 0.01 & 0.02 & 0.20 \\
+  \textbf{0-2}  & 0.93 & 0.92 & 0.90 & 0.79 & 0.55 \\
+  \textbf{3-5}  & 0.07 & 0.07 & 0.10 & 0.20 & 0.27 \\
+  \textbf{>5}   & 0.00 & 0.01 & 0.00 & 0.01 & 0.18 \\
   \bottomrule
   \end{tabular}
 \end{table}  
@@ -388,7 +389,7 @@ where $M$ is the model index and $\theta$ are model parameters.
 \begin{itemize}
 %  \item The EM algorithm provides a straightforward and efficient method of estimating I-prior models.
   \item I-priors provide simple fitting of various regression models for prediction and inference.
-  \item The merits of I-priors extend markedly to the binary and multinomial response case.
+  \item The merits of I-priors extend markedly well to the binary and multinomial response case.
   \item Evidence suggests an I-prior advantage for linear variable selection under multicollinearity.
 \end{itemize}
 
