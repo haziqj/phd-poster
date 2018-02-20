@@ -210,7 +210,7 @@ These were split roughly equally into a training and test set.
 A multinomial I-probit model to predict the class probabilities for each data point:
 
 $$
-p_{ij} = g^{-1} \big( f_j(x_i) \big)
+p_{ij} = g_j^{-1} \big( f(x_i) \big)
 $$
 
 where $$f_j$$ lies in either the canonical or fBm-0.5 RKHS for each class $$j \in \{1,\dots,11\}$$ and $$g^{-1}$$ is the function as described [here](/classification/#multinomial-responses). The predicted class is given by $$\hat y_i = \arg\max_j p_{ij}$$.
@@ -236,7 +236,7 @@ There are four types of BTB which are most commonly occurring, though a class of
 A multinomial I-probit model regressing the class probabilities on $$x_i$$ and $$t_i$$:
 
 $$
-p_{ij} = g^{-1} \big( f_{1j}(x_i) + f_{2j}(t_i) + f_{12j}(x_i,t_i) \big).
+p_{ij} = g^{-1}_j \big( f_{1}(x_i) + f_{2}(t_i) + f_{12}(x_i,t_i) \big).
 $$
 
 A smooth effect of $$x_i$$ is assumed, so $$f_{1j}$$ lies in the fBm-0.5 RKHS. 
@@ -248,3 +248,7 @@ These can be tested formally by performing tests of significance on the scale pa
 
 {% include gallery id="gallery_cornwall" caption="Plots of the spatio-temporal distribution of BTB types in Corwall, together with model predictions." %}
 
+<figure>
+  <a href="/assets/images/btb-animation.gif"><img src="/assets/images/btb-animation.gif"></a>
+  <figcaption>Predicted probability surfaces for BTB contraction over time.</figcaption>
+</figure>

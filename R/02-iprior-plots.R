@@ -1,4 +1,5 @@
 source("01-prelim.R")
+fnH3 <- iprior::kern_fbm
 
 ## ---- plot.function.iprior ----
 dev_SEkern_iprior <- function(theta, y = y) {
@@ -96,9 +97,9 @@ plot1_iprior <- function(kernel = "SE", no.of.draws = 100) {
     y.fitted2 <- as.numeric(mean(y) + lambda * H %*% w.hat)
 
     # Prior variance for f
-    # H.all <- fnH3(x.true, gamma = expit(mod$par[3]))
-    # Vf.pri <- psi * (lambda * H.all) %*% (lambda * H.all)
-    Vf.pri <- psi * lambda ^ 2 * tcrossprod(H.star)
+    H.all <- fnH3(x.true, gamma = expit(mod$par[3]))
+    Vf.pri <- psi * (lambda * H.all) %*% (lambda * H.all)
+    # Vf.pri <- psi * lambda ^ 2 * tcrossprod(H.star)
     class(Vf.pri) <- NULL
 
     # Posterior variance for f
