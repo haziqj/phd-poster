@@ -5,12 +5,12 @@ permalink: /
 header:
   overlay_image: /assets/images/main_image_filter.jpg
   overlay_filter: "0.25"
-excerpt: 'Regression modelling using priors depending on Fisher information covariance kernels (I-priors) <br /><br /> [  Thesis  ](https://github.com/haziqj/phd-thesis/){: .btn .btn--light-outline}&nbsp;[Poster (PDF)](/my-phd-poster.pdf){: .btn .btn--light-outline}'
+excerpt: 'Regression modelling using priors depending on Fisher information covariance kernels (I-priors) <br /><br /> [Thesis (site)](https://github.com/haziqj/phd-thesis/){: .btn .btn--light-outline}&nbsp;[Poster (PDF)](/my-phd-poster.pdf){: .btn .btn--light-outline}'
 intro: 
   - excerpt: 'A thesis submitted to the London School of Economics and Political Science for the degree of Doctor of Philosophy in Statistics.'
 top_stuff:
   - title: "Introduction"
-    excerpt: 'I-priors [(Bergsma, 2017)](/further-info/#introduction) are a class of objective priors which make use of the Fisher information. Estimation is simple, inference straightforward, and often gives better predictions for new data.'
+    excerpt: 'I-priors [(Bergsma, 2018)](https://arxiv.org/abs/1707.00274) are a class of objective priors which make use of the Fisher information. Estimation is simple, inference straightforward, and often gives better predictions for new data.'
     url: "/intro/"
     btn_label: "Read More"
     #btn_class: "btn--inverse"
