@@ -1,6 +1,6 @@
 \documentclass{beamer}
 \usepackage[orientation=landscape,size=a0,scale=1.2]{beamerposter}
-\usepackage{haziq_poster}
+\usepackage{haziq_poster_landscape}
 \usepackage{haziq_maths}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -57,9 +57,9 @@
 \begin{columns}[t]  % and in the columns environment
 
 % Draw lines separating columns
-\tikz[remember picture,overlay]{\draw[black,thick] ([shift={(4mm,-35.8cm)}]current page.north) -- ([shift={(4mm,1.6cm)}]current page.south);}
-\tikz[remember picture,overlay]{\draw[black,thick] ([shift={(308mm,-11.5cm)}]current page.north west) -- ([shift={(308mm,1.6cm)}]current page.south west);}
-\tikz[remember picture,overlay]{\draw[black,thick] ([shift={(-301mm,-11.5cm)}]current page.north east) -- ([shift={(-301mm,1.6cm)}]current page.south east);}
+\tikz[remember picture,overlay]{\draw[black,thick] ([shift={(4mm,-35.8cm)}]current page.north) -- ([shift={(4mm,1.6cm)}]current page.south);} % Middle
+\tikz[remember picture,overlay]{\draw[black,thick] ([shift={(308mm,-11.5cm)}]current page.north west) -- ([shift={(308mm,1.6cm)}]current page.south west);} % Left
+\tikz[remember picture,overlay]{\draw[black,thick] ([shift={(-301mm,-11.5cm)}]current page.north east) -- ([shift={(-301mm,1.6cm)}]current page.south east);} % Right
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% FIRST COLUMN %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
