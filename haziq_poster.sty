@@ -33,6 +33,7 @@
 \usepackage{ragged2e}
 \usepackage{graphicx}  % Required for including images
 \usepackage{booktabs} % Top and bottom rules for tables
+\usepackage[ddmmyyyy]{datetime}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% COLOURS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -172,7 +173,8 @@
     \begin{column}{0.67\paperwidth}
       \vspace{-1.8cm}
 	  \begin{center}
-	    \usebeamercolor{title in headline}{\sfdtitle\color{fg}\Huge{\inserttitle}}
+	    \usebeamercolor{title in headline}{\sfdtitle\color{fg}\Huge{\inserttitle}}\\[1.4em]
+	        {\color{fg}\normalsize{[Updated: \today]}}
 	  \end{center}
     \end{column}
     

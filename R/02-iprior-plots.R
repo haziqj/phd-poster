@@ -1,5 +1,6 @@
 source("01-prelim.R")
 fnH3 <- iprior::kern_fbm
+fnH2 <- iprior::kern_canonical
 
 ## ---- plot.function.iprior ----
 dev_SEkern_iprior <- function(theta, y = y) {
@@ -98,8 +99,8 @@ plot1_iprior <- function(kernel = "SE", no.of.draws = 100) {
 
     # Prior variance for f
     H.all <- fnH3(x.true, gamma = expit(mod$par[3]))
-    Vf.pri <- psi * (lambda * H.all) %*% (lambda * H.all)
-    # Vf.pri <- psi * lambda ^ 2 * tcrossprod(H.star)
+    # Vf.pri <- psi * (lambda * H.all) %*% (lambda * H.all)
+    Vf.pri <- psi * lambda ^ 2 * tcrossprod(H.star)
     class(Vf.pri) <- NULL
 
     # Posterior variance for f
@@ -151,8 +152,8 @@ plot1_iprior <- function(kernel = "SE", no.of.draws = 100) {
   draw.pri <- t(mvtnorm::rmvnorm(no.of.draws, mean = rep(alpha, 1000),
                                  sigma = Vf.pri))
   draw.pos <- t(mvtnorm::rmvnorm(no.of.draws, mean = y.fitted, sigma = Vf.pos))
-  melted.pos <- melt(data.frame(f = draw.pos, x = x.true), id.vars = "x")
-  melted.pri <- melt(data.frame(f = draw.pri, x = x.true), id.vars = "x")
+  melted.pos <- reshape2::melt(data.frame(f = draw.pos, x = x.true), id.vars = "x")
+  melted.pri <- reshape2::melt(data.frame(f = draw.pri, x = x.true), id.vars = "x")
   melted <- rbind(cbind(melted.pri, type = "Prior"),
                   cbind(melted.pos, type = "Posterior"))
 
@@ -167,7 +168,7 @@ plot1_iprior <- function(kernel = "SE", no.of.draws = 100) {
   # Prepare random draws for posterior predictive checks -----------------------
   VarY.hat <- (lambda ^ 2) * H %*% solve(Vy, H) + diag(1 / psi, nrow(Vy))
   ppc <- t(mvtnorm::rmvnorm(no.of.draws, mean = y.fitted2, sigma = VarY.hat))
-  melted.ppc <- melt(data.frame(x = x, ppc = ppc), id.vars = "x")
+  melted.ppc <- reshape2::melt(data.frame(x = x, ppc = ppc), id.vars = "x")
   melted.ppc <- cbind(melted.ppc, type = "Posterior predictive check")
 
   # Random draws from prior and posterior function -----------------------------
@@ -185,7 +186,7 @@ plot1_iprior <- function(kernel = "SE", no.of.draws = 100) {
     theme_bw()
   piy <- expression("95% credible interval ("*italic(y)*")")
   smp <- "Sample paths"
-  mp <- "Mean paths"
+  mp <- "Mean path"
   p2 <- ggplot() +
     scale_x_continuous(
       limits = c(min(x.true), max(x.true)),
@@ -304,6 +305,6 @@ plot.se.iprior <- plot1_iprior("SE")
 plot.poly.iprior <- plot1_iprior("Poly")
 
 ## ---- save.plots.for.presentation ----
-ggsave("../figure/iprior_function.pdf", plot.fbm.iprior$p2,
+ggsave("../figure/iprior_function2.pdf", plot.fbm.iprior$p2,
        width = 3 * 3.5, height = 3.5)
 
