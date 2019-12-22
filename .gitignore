@@ -11,3 +11,4 @@ docs/.jekyll-metadata
 docs/assets/images/originals/
 
 .DS_Store
+*.icloud
