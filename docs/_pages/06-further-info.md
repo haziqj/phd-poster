@@ -15,7 +15,7 @@ sidebar:
 
 ## About
 
-The contents of this website are based on the PhD thesis entitled *Regression Modelling with Priors using Fisher Information Covariance Kernels (I-priors)* by Haziq Jamil. It is intended as an accompaniment to the research poster of the same title.
+The contents of this website are based on the PhD thesis entitled *Regression modelling using priors depending on Fisher information covariance kernels (I-priors)* by Haziq Jamil. It is intended as an accompaniment to the research poster of the same title.
 
 This project was supervised by [Wicher Bergsma](http://www.lse.ac.uk/researchandexpertise/experts/profile.aspx?KeyValue=w.p.bergsma%40lse.ac.uk) and [Irini Moustaki](http://stats.lse.ac.uk/moustaki/).
 
@@ -23,12 +23,12 @@ This project was supervised by [Wicher Bergsma](http://www.lse.ac.uk/researchand
 
 ## Author
 
-Haziq Jamil is a research student in Statistics at the London School of Economics and Political Science.
+Haziq Jamil is currently an Assistant Professor in Statistics at Universiti Brunei Darussalam (UBD).
 His interests are in statistical methodology and computation, with an emphasis on applications towards the social sciences.
 
 Haziq graduated with first class honours from The University of Warwick in 2010, where he read Mathematics, Operational Research, Statistics and Economics. 
-He completed an MSc in Statistics with distinction at the London School of Economics and Political Science in 2014. 
-He is expected to complete his PhD from the same university in 2018.
+He then obtained an MSc in Statistics with distinction at the London School of Economics and Political Science in 2014. 
+He completed his PhD in Statistics from the same university in 2018.
 
 Previously, Haziq worked as a research officer at the Centre of Science and Technology, Research and Development at the Ministry of Defence, Brunei, where he provided scientific decision support for strategic acquisition projects.
 
@@ -52,7 +52,7 @@ Previously, Haziq worked as a research officer at the Centre of Science and Tech
 
 ### Introduction
 
-- Bergsma, W. (2017, July). Regression and classification with I-priors. _Manuscript in preparation_. arXiv: [1707.00274](https://arxiv.org/abs/1707.00274).  
+- Bergsma, W. (2019). Regression with I-priors. _Econometrics and Statistics_. DOI: [10.1016/j.ecosta.2019.10.002](https://doi.org/10.1016/j.ecosta.2019.10.002).
 - Berlinet, A., & Thomas-Agnan, C. (2011). _Reproducing Kernel Hilbert Spaces in Probability and Statistics_. Springer Science & Business Media. DOI: [10.1007/978-1-4419-9096-9](https://dx.doi.org/10.1007/978-1-4419-9096-9).
 - Neal, R. M. (2011). MCMC using Hamiltonian dynamics. _Handbook of Markov Chain Monte Carlo_, _2_(11). Chapman & Hall/CRC Press. arXiv: [1206.1901v1](https://arxiv.org/pdf/1206.1901.pdf).
 - Ong, C. S., Mary, X., Canu, S., & Smola, A. J. (2004, July). Learning with non-positive kernels. In _Proceedings of the Twenty-first International Conference on Machine Learning_ (p. 81). ACM. DOI: [10.1145/1015330.1015443
@@ -88,4 +88,4 @@ Previously, Haziq worked as a research officer at the Centre of Science and Tech
 
 ## Copyright Statement
 
-Copyright © 2014-2017 by Haziq Jamil. All rights reserved. The contents of this website or any portion thereof may not be reproduced or used in any manner whatsoever without the express written permission of the author.
+Copyright © 2014-2020 by Haziq Jamil. All rights reserved. The contents of this website or any portion thereof may not be reproduced or used in any manner whatsoever without the express written permission of the author.
