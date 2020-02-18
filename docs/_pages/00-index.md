@@ -10,7 +10,7 @@ intro:
   - excerpt: 'A thesis submitted to the London School of Economics and Political Science for the degree of Doctor of Philosophy in Statistics.'
 top_stuff:
   - title: "Introduction"
-    excerpt: 'I-priors [(Bergsma, 2018)](https://arxiv.org/abs/1707.00274) are a class of objective priors which make use of the Fisher information. Estimation is simple, inference straightforward, and often gives better predictions for new data.'
+    excerpt: 'I-priors [(Bergsma, 2019)](https://arxiv.org/abs/1707.00274) are a class of objective priors which make use of the Fisher information. Estimation is simple, inference straightforward, and often gives better predictions for new data.'
     url: "/intro/"
     btn_label: "Read More"
     #btn_class: "btn--inverse"
