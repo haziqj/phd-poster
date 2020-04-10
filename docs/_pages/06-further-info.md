@@ -39,13 +39,14 @@ Previously, Haziq worked as a research officer at the Centre of Science and Tech
 ## Related
 
 - Thesis - [LSE Thesis Repository](http://etheses.lse.ac.uk/3828/), [Source](https://github.com/haziqj/phd-thesis/), [Code](https://myphdcode.haziqj.ml)
-- Site source - [GitHub](https://github.com/haziqj/phd-poster)
-- PhD poster - [PDF](/my-phd-poster.pdf)
+- Viva presentation - [HTML](https://haziqj.github.io/phd-thesis/)
+- This site source - [GitHub](https://github.com/haziqj/phd-poster)
+- PhD posters - PDF [1](/my-phd-poster.pdf), [2](https://haziqj.ml/talk/iprobit-poster/)
 - R/iprior package - [CRAN](https://cran.r-project.org/package=iprior), [GitHub](https://github.com/haziqjamil/iprior)
 - R/iprobit package - [GitHub](https://github.com/haziqjamil/iprobit)
 - R/ipriorBVS package - [GitHub](https://github.com/haziqjamil/ipriorBVS)
 - HMC explainer - Shiny Apps [1](https://haziqjamil.shinyapps.io/hmc1/), [2](https://haziqjamil.shinyapps.io/hmc2/)
-- Example of variational inference - [link](http://phd3.haziqj.ml/#supplementary-material)
+- Example of variational inference - [Link](http://phd3.haziqj.ml/#supplementary-material)
 
 
 
