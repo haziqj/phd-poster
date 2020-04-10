@@ -1,6 +1,6 @@
 ---
 layout: splash
-title: My PhD Thesis
+title: My PhD Project
 permalink: /
 header:
   overlay_image: /assets/images/main_image_filter.jpg
