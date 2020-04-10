@@ -38,8 +38,9 @@ Previously, Haziq worked as a research officer at the Centre of Science and Tech
 
 ## Related
 
-- Source - [GitHub](https://github.com/haziqj/phd-poster)
-- PhD Poster - [PDF](/my-phd-poster.pdf)
+- Thesis - [LSE Thesis Repository](http://etheses.lse.ac.uk/3828/), [Source](https://github.com/haziqj/phd-thesis/), [Code](https://myphdcode.haziqj.ml)
+- Site source - [GitHub](https://github.com/haziqj/phd-poster)
+- PhD poster - [PDF](/my-phd-poster.pdf)
 - R/iprior package - [CRAN](https://cran.r-project.org/package=iprior), [GitHub](https://github.com/haziqjamil/iprior)
 - R/iprobit package - [GitHub](https://github.com/haziqjamil/iprobit)
 - R/ipriorBVS package - [GitHub](https://github.com/haziqjamil/ipriorBVS)
