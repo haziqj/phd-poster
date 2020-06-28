@@ -90,4 +90,4 @@ Previously, Haziq worked as a research officer at the Centre of Science and Tech
 
 ## Copyright Statement
 
-Copyright © 2014-2020 by Haziq Jamil. All rights reserved. The contents of this website or any portion thereof may not be reproduced or used in any manner whatsoever without the express written permission of the author.
+Copyright © 2014-present by Haziq Jamil. All rights reserved. The contents of this website or any portion thereof may not be reproduced or used in any manner whatsoever without the express written permission of the author.
