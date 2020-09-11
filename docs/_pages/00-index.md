@@ -5,10 +5,14 @@ permalink: /
 header:
   overlay_image: /assets/images/main_image_filter.jpg
   overlay_filter: "0.25"
-excerpt: 'Regression modelling using priors depending on Fisher information covariance kernels (I-priors) <br /><br /> 
+excerpt: 'Regression modelling using priors depending on Fisher information covariance kernels (I-priors) 
+<br>
 [Thesis (site)](https://haziqj.ml/publication/phd-thesis/){: .btn .btn--light-outline}&nbsp;
 <!-- [Thesis (PDF)](http://etheses.lse.ac.uk/3828/1/Jamil__regression-modelling.pdf){: .btn .btn--light-outline}&nbsp; -->
-[Poster (PDF)](/my-phd-poster.pdf){: .btn .btn--light-outline}'
+[Poster (PDF)](/my-phd-poster.pdf){: .btn .btn--light-outline}
+<br style="line-height: 80px" />
+<small>🏆 [2020 Arnold Zellner Thesis Award (honourable mention)](https://community.amstat.org/businessandeconomicstatisticssection/new-item/new-item2)</small>'
+
 
 intro: 
   - excerpt: 'A thesis submitted to the London School of Economics and Political Science for the degree of Doctor of Philosophy in Statistics.'
