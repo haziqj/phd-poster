@@ -11,7 +11,7 @@ excerpt: 'Regression modelling using priors depending on Fisher information cova
 <!-- [Thesis (PDF)](http://etheses.lse.ac.uk/3828/1/Jamil__regression-modelling.pdf){: .btn .btn--light-outline}&nbsp; -->
 [Poster (PDF)](/my-phd-poster.pdf){: .btn .btn--light-outline}
 <br style="line-height: 80px" />
-<small>🏆 [2020 Arnold Zellner Thesis Award (honourable mention)](https://community.amstat.org/businessandeconomicstatisticssection/new-item/new-item2)</small>'
+<small>🏆 [2020 Zellner Thesis Award (honourable mention)](https://community.amstat.org/businessandeconomicstatisticssection/new-item/new-item2)</small>'
 
 
 intro: 
