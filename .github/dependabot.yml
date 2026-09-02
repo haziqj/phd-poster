@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: bundler
+    directory: /docs
+    schedule:
+      interval: monthly
+    groups:
+      jekyll:
+        patterns:
+          - jekyll*
+          - minima
+          - minimal-mistakes-jekyll
+      security:
+        patterns:
+          - activesupport
+          - addressable
+          - nokogiri
+          - tzinfo
+  - package-ecosystem: npm
+    directory: /docs
+    schedule:
+      interval: monthly
