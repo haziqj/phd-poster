@@ -35,5 +35,5 @@ gem "minimal-mistakes-jekyll"
 # Keep transitive dependencies on maintained, security-fixed releases.
 gem "activesupport", "~> 8.1"
 gem "addressable", "~> 2.8"
-gem "nokogiri", "~> 1.16"
+gem "nokogiri", "~> 1.19"
 gem "tzinfo", "~> 2.0"

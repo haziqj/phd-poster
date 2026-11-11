@@ -112,7 +112,7 @@ GEM
       prism (~> 1.5)
     net-http (0.9.1)
       uri (>= 0.11.1)
-    nokogiri (1.19.4)
+    nokogiri (1.19.5)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     octokit (4.25.1)
@@ -160,7 +160,7 @@ DEPENDENCIES
   kramdown-parser-gfm (~> 1.1)
   minima (~> 2.0)
   minimal-mistakes-jekyll
-  nokogiri (~> 1.16)
+  nokogiri (~> 1.19)
   tzinfo (~> 2.0)
   tzinfo-data
 
